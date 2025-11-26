@@ -16,18 +16,13 @@ class Logs extends Component
 
     public function mount($id)
     {
-        $this->product = Product::findOrFail($id);
+        $this->product = Product::with('transactions','change_logs')->findOrFail($id);
 
         // Product change logs
-        $this->changeLogs = ProductChangeLog::where('product_id', $id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $this->changeLogs = $this->product->change_logs;
 
         // Inventory transactions for this product
-        $this->transactions = InventoryTransaction::with('user')
-            ->where('product_id', $id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $this->transactions = $this->product->transactions;
     }
 
     public function render()

@@ -30,4 +30,13 @@ class Product extends Model
         return $value ? asset("storage/uploads/products/{$value}") : null;
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(InventoryTransaction::class, 'product_id', 'id');
+    }
+
+    public function change_logs()
+    {
+        return $this->hasMany(ProductChangeLog::class, 'product_id', 'id');
+    }
 }

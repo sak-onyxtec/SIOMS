@@ -4,10 +4,9 @@ namespace App\Services;
 
 use App\Helpers\Pagination;
 use App\Models\Product;
-use App\Models\ProductChangeLog;
 use App\Traits\FileManagerTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Events\ProductChanged;
 
 class ProductService
 {
@@ -16,12 +15,14 @@ class ProductService
     public function addProduct(Request $request)
     {
         $product = Product::create($request->toArray());
+
         if ($request->hasFile('product_image')) {
             $file = $this->upload('uploads/products/', $request->product_image);
             $product->product_image = $file;
+            $product->save();
         }
-        $this->logChange($product->id, 'created', null, $product->toArray());
-        $product->save();
+
+        event(new ProductChanged($product->id, 'created', null, $product->toArray()));
 
         return $product;
     }
@@ -29,9 +30,7 @@ class ProductService
     public function updateProduct(Request $request, $id)
     {
         $product = Product::find($id);
-        if (!$product) {
-            return null;
-        }
+        if (!$product) return null;
 
         $before = $product->toArray();
 
@@ -43,12 +42,10 @@ class ProductService
         $product->fill($request->toArray());
         $product->save();
 
-        $this->logChange($product->id, 'updated', $before, $product->toArray());
+        event(new ProductChanged($product->id, 'updated', $before, $product->toArray()));
 
         return $product;
     }
-
-
     public function getProducts(Request $request)
     {
         $products = Product::when($request->filled('search'), function ($query) use ($request) {
@@ -69,27 +66,13 @@ class ProductService
     public function deleteProduct(Request $request, $id)
     {
         $product = Product::find($id);
-        if (!$product) {
-            return null;
-        }
+        if (!$product) return null;
 
         $before = $product->toArray();
-
         $product->delete();
 
-        $this->logChange($id, 'deleted', $before, null);
+        event(new ProductChanged($id, 'deleted', $before, null));
 
         return true;
-    }
-
-    private function logChange($productId, $action, $before = null, $after = null)
-    {
-        ProductChangeLog::create([
-            'product_id' => $productId,
-            'action_by' => Auth::id(),
-            'action' => $action,
-            'before' => $before ? json_encode($before) : null,
-            'after' => $after ? json_encode($after) : null,
-        ]);
     }
 }
