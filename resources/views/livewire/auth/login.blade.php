@@ -1,20 +1,20 @@
 <div class="min-h-screen flex">
-    <!-- Left Side (Image/Color) -->
+    <!-- Left Side (Brand + Illustration) -->
     <div class="hidden lg:flex w-1/2 bg-blue-600 items-center justify-center relative">
-        <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fgrocery-shopping-cart%2F96&psig=AOvVaw2PQb5H5SZroERviOSd3Ruh&ust=1764336674059000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJjD2be4kpEDFQAAAAAdAAAAABAL"
-            alt="Login Image" class="object-cover w-full h-full opacity-80">
+        <img src="{{ asset('storage/uploads/branding/login-hero.jpg') }}"
+             alt="Login Illustration" class="object-cover w-full h-full opacity-80">
         <div class="absolute inset-0 bg-blue-700 opacity-50"></div>
         <div class="absolute text-white text-center px-6">
-            <h1 class="text-4xl font-bold mb-4">Welcome Back!</h1>
-            <p class="text-lg">Login to your account to continue shopping with SIOMS.</p>
+            <h1 class="text-4xl font-extrabold mb-2 tracking-tight">SIOMS</h1>
+            <p class="text-lg">Login to your account to continue shopping with our smart inventory system.</p>
         </div>
     </div>
 
     <!-- Right Side (Form) -->
     <div class="flex w-full lg:w-1/2 items-center justify-center bg-gray-100">
         <div class="max-w-md w-full bg-white p-10 rounded-lg shadow-lg">
-            <x-application-logo class="w-20 h-20 text-center" />
-            <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">Login</h2>
+            <h2 class="text-3xl font-bold mb-2 text-center text-gray-800">Welcome back</h2>
+            <p class="text-sm text-gray-500 mb-6 text-center">Sign in to your SIOMS account</p>
 
             @if (session()->has('error'))
                 <p class="bg-red-100 text-red-700 p-2 rounded mb-4 text-center">{{ session('error') }}</p>

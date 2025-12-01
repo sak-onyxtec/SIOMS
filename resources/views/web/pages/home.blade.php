@@ -144,7 +144,7 @@
     <!-- =======================
              PRICING / DEALS
         ======================= -->
-    <section class="py-20 bg-gray-50">
+    <!-- <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-4 scroll-fade-in">Our Deals</h2>
             <p class="text-center text-gray-600 mb-14 scroll-fade-in">Choose the plan that works best for you</p>
@@ -188,7 +188,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- =======================
              FINAL CTA
@@ -196,7 +196,7 @@
     <section class="bg-gradient-to-r from-blue-600 to-blue-500 text-white py-20 text-center scroll-fade-in">
         <h2 class="text-4xl md:text-5xl font-extrabold mb-6">Start Shopping Today</h2>
         <p class="mb-8 text-lg text-blue-50 max-w-2xl mx-auto">Join thousands of happy customers using MyStore.</p>
-        <a href="#products" class="px-10 py-4 bg-yellow-300 text-blue-900 rounded-lg font-bold text-lg hover:bg-yellow-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 inline-block">
+        <a href="{{route('products.web')}}" class="px-10 py-4 bg-yellow-300 text-blue-900 rounded-lg font-bold text-lg hover:bg-yellow-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 inline-block">
             Shop Now
         </a>
     </section>

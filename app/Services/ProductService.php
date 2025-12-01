@@ -15,7 +15,16 @@ class ProductService
 
     public function addProduct(Request $request)
     {
-        $data = $request->only(['name', 'slug', 'sku', 'category_id', 'quantity', 'price']);
+        $data = $request->only([
+            'name',
+            'short_description',
+            'description',
+            'slug',
+            'sku',
+            'category_id',
+            'quantity',
+            'price',
+        ]);
         
         // Generate slug if not provided
         if (empty($data['slug']) && !empty($data['name'])) {
@@ -57,7 +66,16 @@ class ProductService
 
         $before = $product->toArray();
 
-        $data = $request->only(['name', 'slug', 'sku', 'category_id', 'quantity', 'price']);
+        $data = $request->only([
+            'name',
+            'short_description',
+            'description',
+            'slug',
+            'sku',
+            'category_id',
+            'quantity',
+            'price',
+        ]);
         
         // Handle legacy single image - check if it's already uploaded (string) or needs upload (file)
         if ($request->has('product_image')) {

@@ -1,24 +1,78 @@
-<div class="container mx-auto px-6 py-10">
+@php
+    $lightboxImages = [];
+    if ($product->product_image) {
+        $lightboxImages[] = $product->product_image;
+    }
+    if ($product->images && $product->images->count()) {
+        foreach ($product->images as $img) {
+            $lightboxImages[] = $img->image_url;
+        }
+    }
+@endphp
+
+<div class="container mx-auto px-6 py-10"
+     x-data="{
+        tab: 'description',
+        zoomOpen: false,
+        images: @js($lightboxImages),
+        currentIndex: 0,
+        get activeImage() { return this.images[this.currentIndex] || '' },
+        get zoomSrc() { return this.images[this.currentIndex] || '' },
+        openAt(index) {
+            this.currentIndex = index;
+            this.zoomOpen = true;
+        },
+        next() {
+            if (!this.images.length) return;
+            this.currentIndex = (this.currentIndex + 1) % this.images.length;
+        },
+        prev() {
+            if (!this.images.length) return;
+            this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+        }
+     }">
 
     <div class="flex flex-col lg:flex-row gap-10">
 
         {{-- Product Images / Gallery --}}
         <div class="w-full lg:w-1/2 flex flex-col gap-4">
 
-            <div class="rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ $product->product_image}}"
-                    alt="{{ $product->name }}" class="w-full h-full object-cover rounded-lg">
+            {{-- Main image with hover zoom + click to open modal --}}
+            <div
+                class="rounded-lg shadow-lg overflow-hidden group cursor-zoom-in"
+                @click="zoomOpen = true">
+                <img
+                    :src="activeImage"
+                    alt="{{ $product->name }}"
+                    class="w-full h-full object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110">
             </div>
 
-            {{-- Optional: Thumbnails --}}
-            @if ($product->gallery_images && count($product->gallery_images))
-                <div class="flex gap-2 mt-4 overflow-x-auto">
-                    @foreach ($product->gallery_images as $img)
-                        <img src="{{ $img }}" alt="{{ $product->name }}"
-                            class="w-20 h-20 object-cover rounded-lg cursor-pointer border hover:border-blue-500 transition">
+            {{-- Thumbnails (main image + additional images) --}}
+            <div class="flex gap-2 mt-4 overflow-x-auto">
+                {{-- Main image thumbnail --}}
+                <img
+                    src="{{ $product->product_image }}"
+                    alt="{{ $product->name }} main image"
+                    class="w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition"
+                    :class="activeImage === '{{ $product->product_image }}'
+                        ? 'border-blue-500 ring-2 ring-blue-300'
+                        : 'border-gray-200 hover:border-blue-400'"
+                    @click="openAt(0)">
+
+                {{-- Additional images --}}
+                @if ($product->images && $product->images->count())
+                    @foreach ($product->images as $image)
+                        <img
+                            src="{{ $image->image_url }}"
+                            alt="{{ $product->name }}"
+                            class="w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition"
+                            :class="activeImage === '{{ $image->image_url }}'
+                                ? 'border-blue-500 ring-2 ring-blue-300'
+                                : 'border-gray-200 hover:border-blue-400'"
+                            @click="openAt({{ $loop->index + 1 }})">
                     @endforeach
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
 
         {{-- Product Info --}}
@@ -43,17 +97,28 @@
             @endif
 
             {{-- Quantity Selector --}}
-            <div class="flex items-center gap-2 mt-4">
-                <button wire:click="decrement"
-                    class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded transition disabled:opacity-50"
-                    @if ($quantity <= 1) disabled @endif>-</button>
+            <div class="flex items-center gap-3 mt-4">
+                <span class="text-sm font-medium text-gray-700">Quantity</span>
 
-                <input type="text" value="{{ $quantity }}" class="w-16 text-center border rounded font-medium"
-                    readonly>
+                <button
+                    wire:click="decrement"
+                    class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700 text-lg font-semibold transition disabled:opacity-40 disabled:cursor-not-allowed"
+                    @if ($quantity <= 1) disabled @endif
+                    aria-label="Decrease quantity">
+                    -
+                </button>
 
-                <button wire:click="increment"
-                    class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded transition disabled:opacity-50"
-                    @if ($quantity >= $product->quantity) disabled @endif>+</button>
+                <div class="min-w-[3rem] text-center font-semibold text-gray-800">
+                    {{ $quantity }}
+                </div>
+
+                <button
+                    wire:click="increment"
+                    class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700 text-lg font-semibold transition disabled:opacity-40 disabled:cursor-not-allowed"
+                    @if ($quantity >= $product->quantity) disabled @endif
+                    aria-label="Increase quantity">
+                    +
+                </button>
             </div>
 
             {{-- Add to Cart Button --}}
@@ -68,24 +133,24 @@
                 <p class="mt-2 text-green-600 font-medium">{{ session('message') }}</p>
             @endif
 
-            {{-- Tabs for Description / Info / Reviews --}}
+            {{-- Tabs: Description & Images --}}
             <div class="mt-8">
                 <ul class="flex border-b">
                     <li class="mr-6">
-                        <button class="pb-2 font-semibold border-b-2 border-blue-600">Description</button>
-                    </li>
-                    <li class="mr-6">
-                        <button class="pb-2 font-semibold text-gray-500 hover:text-gray-700">Additional Info</button>
-                    </li>
-                    <li class="mr-6">
-                        <button class="pb-2 font-semibold text-gray-500 hover:text-gray-700">Reviews</button>
+                        <button
+                            @click="tab = 'description'"
+                            :class="tab === 'description' ? 'pb-2 font-semibold border-b-2 border-blue-600 text-blue-600' : 'pb-2 font-semibold text-gray-500 hover:text-gray-700 border-b-2 border-transparent'">
+                            Description
+                        </button>
                     </li>
                 </ul>
 
                 <div class="mt-4">
-                    <div class="text-gray-700">
+                    {{-- Description tab --}}
+                    <div x-show="tab === 'description'" x-cloak class="text-gray-700 leading-relaxed">
                         {!! $product->description !!}
                     </div>
+
                 </div>
             </div>
         </div>
@@ -111,5 +176,36 @@
             </div>
         </div>
     @endif
+
+    {{-- Zoom / Lightbox Modal --}}
+    <div
+        x-show="zoomOpen"
+        x-cloak
+        class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+        @keydown.escape.window="zoomOpen = false"
+        @click.self="zoomOpen = false">
+        <div class="relative max-w-5xl w-full px-4">
+            <button
+                class="absolute -top-3 -right-3 bg-white text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-gray-100"
+                @click="zoomOpen = false">
+                ✕
+            </button>
+            <div class="bg-white rounded-lg overflow-hidden shadow-2xl relative flex items-center justify-center">
+                <button
+                    type="button"
+                    class="hidden sm:flex absolute left-2 sm:left-4 z-10 items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/80 text-gray-700 hover:bg-white shadow"
+                    @click.stop="prev()">
+                    ‹
+                </button>
+                <img :src="zoomSrc" alt="Zoomed image" class="w-full max-h-[80vh] object-contain bg-black">
+                <button
+                    type="button"
+                    class="hidden sm:flex absolute right-2 sm:right-4 z-10 items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/80 text-gray-700 hover:bg-white shadow"
+                    @click.stop="next()">
+                    ›
+                </button>
+            </div>
+        </div>
+    </div>
 
 </div>

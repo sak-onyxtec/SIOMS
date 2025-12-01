@@ -17,32 +17,92 @@
         </button>
     </div>
 
-    {{-- Filter --}}
-    <div class="mb-4">
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Filter by Product</label>
-        <select wire:model="filter_product_id"
-                wire:change="loadTransactions"
-                class="w-full max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
-            <option value="">All Products</option>
-            @foreach ($products as $product)
-                <option value="{{ $product->id }}">{{ $product->name }}</option>
-            @endforeach
-        </select>
+    {{-- Filters --}}
+    <div class="mb-4 flex flex-col sm:flex-row gap-4">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Filter by Product</label>
+            <select wire:model="filter_product_id"
+                    class="w-64 max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                <option value="">All Products</option>
+                @foreach ($products as $product)
+                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Filter by Type</label>
+            <select wire:model="filter_type"
+                    class="w-64 max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                <option value="">All Types</option>
+                <option value="stock_in">Stock In</option>
+                <option value="stock_out">Stock Out</option>
+                <option value="adjustment">Adjustment</option>
+            </select>
+        </div>
     </div>
 
-    {{-- Transactions Table --}}
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mt-4">
+    {{-- Transactions Table (auto-refresh) --}}
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mt-4" wire:poll>
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Type</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Quantity</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            <button wire:click="sortByColumn('id')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
+                                ID
+                                <div class="flex flex-col">
+                                    <svg class="w-3 h-3 {{ $sortBy === 'id' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'id' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            <button wire:click="sortByColumn('type')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
+                                Type
+                                <div class="flex flex-col">
+                                    <svg class="w-3 h-3 {{ $sortBy === 'type' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'type' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            <button wire:click="sortByColumn('quantity')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
+                                Quantity
+                                <div class="flex flex-col">
+                                    <svg class="w-3 h-3 {{ $sortBy === 'quantity' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'quantity' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">User</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Product</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Notes</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            <button wire:click="sortByColumn('created_at')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
+                                Date
+                                <div class="flex flex-col">
+                                    <svg class="w-3 h-3 {{ $sortBy === 'created_at' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'created_at' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -84,9 +144,14 @@
         </div>
     </div>
 
+    {{-- Pagination --}}
+    <div class="mt-6">
+        {{ $transactions->links() }}
+    </div>
+
     {{-- Modal for New Transaction --}}
     @if($showModal)
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-30 backdrop-blur-sm">
             <div class="bg-white rounded-xl shadow-2xl border border-gray-100 w-full max-w-lg">
                 <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                     <h3 class="text-lg font-semibold text-gray-800">New Inventory Transaction</h3>

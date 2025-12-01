@@ -11,7 +11,17 @@ class Product extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'slug', 'sku', 'category_id', 'quantity', 'price', 'product_image'];
+    protected $fillable = [
+        'name',
+        'short_description',
+        'description',
+        'slug',
+        'sku',
+        'category_id',
+        'quantity',
+        'price',
+        'product_image',
+    ];
 
     protected $casts = [
         "quantity" => "integer",

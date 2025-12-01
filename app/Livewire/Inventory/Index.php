@@ -3,6 +3,7 @@
 namespace App\Livewire\Inventory;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Product;
 use App\Models\InventoryTransaction;
 use App\Services\InventoryService;
@@ -10,44 +11,37 @@ use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
+    use WithPagination;
     public $product_id;
     public $type;
     public $quantity;
     public $notes;
 
     public $products;
-    public $transactions;
 
     public $showModal = false;
+
+    public $sortBy = 'created_at';
+    public $sortDirection = 'asc';
+
+    protected $paginationTheme = 'tailwind';
 
     public function mount()
     {
         $this->products = Product::all();
-        $this->loadTransactions();
     }
 
     public $filter_product_id;
+    public $filter_type;
 
     public function updatedFilterProductId()
     {
-        $this->loadTransactions();
+        $this->resetPage();
     }
 
-    public function loadTransactions()
+    public function updatedFilterType()
     {
-        $query = InventoryTransaction::with(['user', 'product'])->latest();
-
-        if ($this->filter_product_id) {
-            $query->where('product_id', $this->filter_product_id);
-        }
-
-        $this->transactions = $query->get();
-    }
-
-
-    public function updatedProductId()
-    {
-        $this->loadTransactions();
+        $this->resetPage();
     }
 
     public function saveTransaction()
@@ -67,17 +61,42 @@ class Index extends Component
             $this->notes
         );
 
-        // Reset inputs and close modal
+        // Reset inputs and close modal, then reset pagination so list refreshes
         $this->reset(['type', 'quantity', 'notes', 'showModal']);
-        $this->loadTransactions();
+        $this->resetPage();
 
         session()->flash('success', 'Transaction saved successfully!');
     }
 
+    public function sortByColumn($column)
+    {
+        if ($this->sortBy === $column) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortBy = $column;
+            $this->sortDirection = 'asc';
+        }
+
+        $this->resetPage();
+    }
+
     public function render()
     {
+        $query = InventoryTransaction::with(['user', 'product'])
+            ->orderBy($this->sortBy, $this->sortDirection);
+
+        if (!is_null($this->filter_product_id) && $this->filter_product_id !== '') {
+            $query->where('product_id', (int) $this->filter_product_id);
+        }
+
+        if (!is_null($this->filter_type) && $this->filter_type !== '') {
+            $query->where('type', $this->filter_type);
+        }
+
+        $transactions = $query->paginate(10);
+
         return view('livewire.inventory.index', [
-            'transactions' => $this->transactions
+            'transactions' => $transactions
         ]);
     }
 }

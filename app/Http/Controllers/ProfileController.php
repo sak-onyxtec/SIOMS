@@ -69,6 +69,14 @@ class ProfileController extends Controller
         $totalStockValue = Product::sum(DB::raw('quantity * price'));
         $lowStockItems = Product::where('quantity', '<=', 5)->count(); // threshold
 
+        // Orders summary
+        $totalOrders = Order::count();
+        $totalPendingOrders = Order::where('status', 'pending')->count();
+
+        // Latest records
+        $latestProducts = Product::latest()->take(3)->get();
+        $latestOrders = Order::with('items.product')->latest()->take(3)->get();
+
         // Monthly Sales (1-12)
         $sales = Order::select(
             DB::raw('MONTH(created_at) as month'),
@@ -108,7 +116,11 @@ class ProfileController extends Controller
             'totalStockValue',
             'lowStockItems',
             'monthlySales',
-            'inventoryMovement'
+            'inventoryMovement',
+            'totalOrders',
+            'totalPendingOrders',
+            'latestProducts',
+            'latestOrders'
         ));
     }
 }

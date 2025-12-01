@@ -19,12 +19,12 @@
                 Products
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
             </a>
-            @auth
+            <!-- @auth
                 <a href="{{ route('orders.web.listing') }}" class="relative group hover:text-blue-600 transition-colors duration-300">
                     Orders
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
                 </a>
-            @endauth
+            @endauth -->
         </nav>
 
         <!-- Right Side (Auth + Cart) -->
@@ -50,7 +50,7 @@
                     <!-- Dropdown Menu -->
                     <div x-show="open" @click.away="open = false" x-transition
                         class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 animate-fade-in-up">
-                        <a href="#"
+                        <a href="{{ route('web.profile') }}"
                             class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
                         <a href="{{ route('orders.web.listing') }}"
                             class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Orders</a>
@@ -75,9 +75,9 @@
         <nav class="flex flex-col p-6 space-y-4 text-gray-700 font-medium">
             <a href="{{ route('home.web') }}" class="hover:text-blue-600 transition-colors duration-300 py-2">Home</a>
             <a href="{{ route('products.web') }}" class="hover:text-blue-600 transition-colors duration-300 py-2">Products</a>
-            @auth
+            <!-- @auth
                 <a href="{{ route('orders.web.listing') }}" class="hover:text-blue-600 transition-colors duration-300 py-2">Orders</a>
-            @endauth
+            @endauth -->
 
             <!-- Mobile Auth Links -->
             @guest
@@ -85,7 +85,7 @@
                 <a href="{{ route('register.web') }}"
                    class="bg-blue-600 text-white px-4 py-2.5 rounded-lg text-center shadow-md hover:shadow-lg transition-all duration-300">Sign Up</a>
             @else
-                <a href="#" class="hover:text-blue-600">Profile</a>
+                <a href="{{ route('web.profile') }}" class="hover:text-blue-600">Profile</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="w-full text-left hover:text-blue-600">Logout</button>
