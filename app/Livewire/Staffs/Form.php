@@ -51,6 +51,7 @@ class Form extends Component
                 'email' => $this->email,
             ]);
             $staff->password = $this->password;
+            $staff->save();
             $staff->assignRole('staff');
         }
 

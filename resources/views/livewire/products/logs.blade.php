@@ -9,7 +9,7 @@
 
     <div class="row">
         <!-- Change Logs -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-12 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="mb-3">Change Logs</h5>
@@ -44,7 +44,7 @@
         </div>
 
         <!-- Inventory Transactions -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-12 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="mb-3">Inventory Transactions</h5>
