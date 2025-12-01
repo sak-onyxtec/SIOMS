@@ -1,123 +1,98 @@
 <!-- Sidebar + Main Layout Wrapper -->
-<div class="d-flex">
+<div class="flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="sidebar bg-white dark:bg-gray-800 border-end" style="width: 230px; min-height: 100vh;">
-
-        <div class="p-3 border-bottom d-flex align-items-center">
-            <a href="{{ route('dashboard') }}" class="d-flex align-items-center text-decoration-none">
+    <aside class="bg-white dark:bg-gray-800 w-56 border-r">
+        <div class="p-4 border-b flex items-center">
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 no-underline">
                 <x-application-logo class="h-8 w-auto text-gray-800 dark:text-gray-200" />
-                <span class="ms-2 fw-bold text-dark dark:text-gray-200">SIOMS</span>
+                <span class="font-bold text-gray-800 dark:text-gray-200">SIOMS</span>
             </a>
         </div>
 
-        <ul class="nav flex-column py-3">
+        <nav class="mt-4 flex flex-col">
+            <!-- Dashboard -->
+            <a href="{{ route('dashboard') }}"
+                class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
+               {{ request()->routeIs('dashboard') ? 'bg-blue-500 text-white' : '' }}">
+                <i class="fa fa-home w-5"></i>
+                <span class="ml-2">Dashboard</span>
+            </a>
 
-            @if (Auth::user()->hasRole('customer'))
-                <!-- Products -->
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('product.listing') ? 'active' : '' }}"
-                       href="{{ route('product.listing') }}">
-                        <i class="fa fa-box"></i> <span class="ms-2">Products</span>
-                    </a>
-                </li>
-
-                <!-- Cart -->
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('cart.index') ? 'active' : '' }}"
-                       href="{{ route('cart.index') }}">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span class="ms-2">Cart</span>
-
-                        @php
-                            $cart = session('cart', []);
-                            $cartCount = collect($cart)->sum('quantity');
-                        @endphp
-
-                        @if ($cartCount > 0)
-                            <span class="badge bg-danger ms-2">{{ $cartCount }}</span>
-                        @endif
-                    </a>
-                </li>
-
-            @else
-                <!-- Dashboard -->
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                       href="{{ route('dashboard') }}">
-                        <i class="fa fa-home"></i> <span class="ms-2">Dashboard</span>
-                    </a>
-                </li>
-
-                <!-- Products -->
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('product.index') ? 'active' : '' }}"
-                       href="{{ route('product.index') }}">
-                        <i class="fa fa-boxes"></i> <span class="ms-2">Products</span>
-                    </a>
-                </li>
-            @endif
+            <!-- Products -->
+            <a href="{{ route('product.index') }}"
+                class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
+               {{ request()->routeIs('product.index') ? 'bg-blue-500 text-white' : '' }}">
+                <i class="fa fa-boxes w-5"></i>
+                <span class="ml-2">Products</span>
+            </a>
 
             @can('manage-staffs')
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('staff.index') ? 'active' : '' }}"
-                       href="{{ route('staff.index') }}">
-                        <i class="fa fa-users"></i> <span class="ms-2">Staffs</span>
-                    </a>
-                </li>
+                <a href="{{ route('staff.index') }}"
+                    class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
+                   {{ request()->routeIs('staff.index') ? 'bg-blue-500 text-white' : '' }}">
+                    <i class="fa fa-users w-5"></i>
+                    <span class="ml-2">Staffs</span>
+                </a>
             @endcan
-
 
             @can('manage-permissions')
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"
-                       href="{{ route('roles.index') }}">
-                        <i class="fa fa-key"></i> <span class="ms-2">Permissions</span>
-                    </a>
-                </li>
+                <a href="{{ route('roles.index') }}"
+                    class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
+                   {{ request()->routeIs('roles.index') ? 'bg-blue-500 text-white' : '' }}">
+                    <i class="fa fa-key w-5"></i>
+                    <span class="ml-2">Permissions</span>
+                </a>
             @endcan
 
-            {{-- @can('manage-inventory') --}}
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('inventory.index') ? 'active' : '' }}"
-                       href="{{ route('inventory.index') }}">
-                        <i class="fa fa-box"></i> <span class="ms-2">Inventory</span>
-                    </a>
-                </li>
-            {{-- @endcan --}}
+            @can('manage-inventory')
+                <a href="{{ route('inventory.index') }}"
+                    class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
+               {{ request()->routeIs('inventory.index') ? 'bg-blue-500 text-white' : '' }}">
+                    <i class="fa fa-box w-5"></i>
+                    <span class="ml-2">Inventory</span>
+                </a>
+            @endcan
+            @can('manage-orders')
+                <a href="{{ route('orders.index') }}"
+                    class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
+               {{ request()->routeIs('orders.index') ? 'bg-blue-500 text-white' : '' }}">
+                    <i class="fa fa-box w-5"></i>
+                    <span class="ml-2">Orders</span>
+                </a>
+            @endcan
 
             <!-- Profile -->
-            <li class="nav-item mt-3 border-top pt-3">
-                <a class="nav-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}"
-                   href="{{ route('profile.edit') }}">
-                    <i class="fa fa-user"></i> <span class="ms-2">Profile</span>
+            <div class="mt-6 border-t pt-3">
+                <a href="{{ route('profile.edit') }}"
+                    class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
+                   {{ request()->routeIs('profile.edit') ? 'bg-blue-500 text-white' : '' }}">
+                    <i class="fa fa-user w-5"></i>
+                    <span class="ml-2">Profile</span>
                 </a>
-            </li>
 
-            <!-- Logout -->
-            <li class="nav-item">
+                <!-- Logout -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <a class="nav-link text-danger" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); this.closest('form').submit();">
-                        <i class="fa fa-right-from-bracket"></i> <span class="ms-2">Logout</span>
-                    </a>
+                    <button type="submit"
+                        class="flex items-center w-full px-4 py-2 mt-2 text-red-600 dark:text-red-400 no-underline hover:bg-red-100 dark:hover:bg-red-700 hover:text-red-700 dark:hover:text-red-100 transition">
+                        <i class="fa fa-right-from-bracket w-5"></i>
+                        <span class="ml-2">Logout</span>
+                    </button>
                 </form>
-            </li>
-
-        </ul>
-    </div>
+            </div>
+        </nav>
+    </aside>
 
     <!-- Main Content -->
-    <div class="flex-grow-1" style="min-height: 100vh;">
-        <!-- Keep your existing header + slot area -->
+    <div class="flex-1 bg-gray-100 dark:bg-gray-900">
         @isset($header)
-            <header class="bg-white dark:bg-gray-800 shadow p-4 mb-3">
+            <header class="bg-white dark:bg-gray-800 p-4 mb-3">
                 {{ $header }}
             </header>
         @endisset
 
-        <main class="p-3">
+        <main>
             {{ $slot }}
         </main>
     </div>

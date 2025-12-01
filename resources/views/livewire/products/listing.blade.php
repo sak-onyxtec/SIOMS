@@ -2,14 +2,14 @@
 
     {{-- Search --}}
     <div class="mb-4 flex justify-end">
-        <input type="text" wire:model.debounce.300ms="search" placeholder="Search products..."
+        <input type="text" wire:model="search" wire:keyup="set('search',$event.target.value)" placeholder="Search products..."
             class="border rounded px-4 py-2 w-64 focus:outline-none focus:ring focus:border-blue-300">
     </div>
 
     {{-- Products Grid --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @forelse ($products as $product)
-            <a href="{{ route('products.detail', $product->id) }}" wire:key="product-{{ $product->id }}">
+            <a href="{{ route('products.detail', $product->id) }}" wire:key="product-{{ $product->id }}" class="no-underline">
                 <div class="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden hover:shadow-lg transition duration-200">
                     
                     {{-- Product Image --}}
@@ -26,9 +26,15 @@
                     <div class="p-4">
                         <h3 class="font-semibold text-lg">{{ $product->name }}</h3>
                         <p class="text-sm text-gray-500">SKU: {{ $product->sku }}</p>
-                        <p class="text-sm text-gray-500">Category: {{ $product->category ?? '-' }}</p>
+                        <p class="text-sm text-gray-500">Category: {{ optional($product->category)->name ?? '-' }}</p>
                         <p class="text-base font-semibold mt-2">${{ number_format($product->price, 2) }}</p>
-                        <p class="text-sm text-gray-500">Qty: {{ $product->quantity }}</p>
+
+                        {{-- Stock Status --}}
+                        @if($product->quantity > 0)
+                            <p class="text-sm text-gray-500">Qty: {{ $product->quantity }}</p>
+                        @else
+                            <p class="text-sm text-red-500 font-semibold">Out of Stock</p>
+                        @endif
                     </div>
 
                 </div>

@@ -1,0 +1,51 @@
+<!-- =======================
+     ADVANCED FOOTER
+======================= -->
+<footer class="bg-gray-900 text-gray-300 py-14 mt-20">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+
+        <!-- About -->
+        <div>
+            <h3 class="text-xl font-bold text-white mb-4">MyApp</h3>
+            <p class="text-gray-400">
+                A modern inventory and order management system designed for small & medium businesses.
+            </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+                <li><a href="/" class="hover:text-white">Home</a></li>
+                <li><a href="/products" class="hover:text-white">Products</a></li>
+                <li><a href="/orders" class="hover:text-white">Orders</a></li>
+                <li><a href="/contact" class="hover:text-white">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-4">Support</h3>
+            <ul class="space-y-2">
+                <li><a href="/faq" class="hover:text-white">FAQ</a></li>
+                <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
+                <li><a href="/terms" class="hover:text-white">Terms & Conditions</a></li>
+            </ul>
+        </div>
+
+        <!-- Social -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-4">Follow Us</h3>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-white text-2xl">🌐</a>
+                <a href="#" class="hover:text-white text-2xl">🐦</a>
+                <a href="#" class="hover:text-white text-2xl">📘</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-500">
+        © {{ date('Y') }} SIOMS — All Rights Reserved.
+    </div>
+</footer>

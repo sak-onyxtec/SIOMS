@@ -17,6 +17,9 @@ class PermissionsSeeder extends Seeder
             'edit-products',
             'delete-products',
             'manage-users',
+            'manage-staffs',
+            'manage-permissions',
+            'manage-orders',
         ];
 
         foreach ($permissions as $permission) {
