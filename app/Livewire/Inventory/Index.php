@@ -18,6 +18,8 @@ class Index extends Component
     public $products;
     public $transactions;
 
+    public $showModal = false;
+
     public function mount()
     {
         $this->products = Product::all();
@@ -33,7 +35,7 @@ class Index extends Component
 
     public function loadTransactions()
     {
-        $query = InventoryTransaction::latest();
+        $query = InventoryTransaction::with(['user', 'product'])->latest();
 
         if ($this->filter_product_id) {
             $query->where('product_id', $this->filter_product_id);
@@ -65,8 +67,8 @@ class Index extends Component
             $this->notes
         );
 
-        // Reset inputs
-        $this->reset(['type', 'quantity', 'notes']);
+        // Reset inputs and close modal
+        $this->reset(['type', 'quantity', 'notes', 'showModal']);
         $this->loadTransactions();
 
         session()->flash('success', 'Transaction saved successfully!');
