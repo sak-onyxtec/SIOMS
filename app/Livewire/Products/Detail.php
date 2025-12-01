@@ -67,7 +67,7 @@ class Detail extends Component
 
     public function similarProducts()
     {
-        return \App\Models\Product::where('category', $this->product->category)
+        return \App\Models\Product::where('category_id', $this->product->category_id)
             ->where('id', '!=', $this->product->id)
             ->take(4)
             ->get();

@@ -5,6 +5,7 @@ namespace App\Livewire\Inventory;
 use Livewire\Component;
 use App\Models\Product;
 use App\Models\InventoryTransaction;
+use App\Services\InventoryService;
 use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
@@ -54,34 +55,15 @@ class Index extends Component
             'type' => 'required|in:stock_in,stock_out,adjustment',
             'quantity' => 'required|integer|min:1',
         ]);
+        
+        $inventoryService = app(InventoryService::class);
 
-        $product = Product::findOrFail($this->product_id);
-
-        // Prevent stock going negative
-        if ($this->type === 'stock_out' && $product->stock < $this->quantity) {
-            $this->addError('quantity', 'Not enough stock available.');
-            return;
-        }
-
-        // Adjust stock
-        if ($this->type === 'stock_in') {
-            $product->increment('quantity', $this->quantity);
-        } elseif ($this->type === 'stock_out') {
-            $product->decrement('quantity', $this->quantity);
-        } elseif ($this->type === 'adjustment') {
-            $product->quantity = $this->quantity;
-            $product->save();
-        }
-
-        // Log transaction
-        $inventory = InventoryTransaction::create([
-            'type' => $this->type,
-            'quantity' => $this->quantity,
-            'notes' => $this->notes,
-        ]);
-        $inventory->product_id = $this->product_id;
-        $inventory->user_id = Auth::id();
-        $inventory->save();
+        $inventoryService->process(
+            $this->product_id,
+            $this->type,
+            $this->quantity,
+            $this->notes
+        );
 
         // Reset inputs
         $this->reset(['type', 'quantity', 'notes']);

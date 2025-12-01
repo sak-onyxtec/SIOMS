@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ env('APP_NAME') ?? 'SIOMS' }}</title>
+
+    {{-- Tailwind (if using CDN) --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- If you're using Vite --}}
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+
+    {{-- Scroll Animation Styles --}}
+    <style>
+        .scroll-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .scroll-slide-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .scroll-slide-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    @livewireStyles
+
+    @yield('styles')
+</head>
+
+<body class="bg-gray-50 antialiased">
+
+    {{-- Header --}}
+    @include('web.layouts.header')
+
+    {{-- Page Content --}}
+    <main class="min-h-screen">
+        @yield('content')
+    </main>
+
+    {{-- Footer --}}
+    @include('web.layouts.footer')
+
+    @livewireScripts
+    
+    {{-- Scroll Animation Script --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-fade-in, .scroll-slide-left, .scroll-slide-right').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+    @yield('scripts')
+</body>
+
+</html>

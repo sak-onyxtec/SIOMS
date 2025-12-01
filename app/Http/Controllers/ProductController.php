@@ -42,9 +42,9 @@ class ProductController extends Controller
     {
         return view('product.edit')->with(['id' => $id]);
     }
-    public function logs($id)
+    public function view($id)
     {
-        return view('product.logs')->with(['id' => $id]);
+        return view('product.view')->with(['id' => $id]);
     }
 
     // public function update(Request $request, $id)

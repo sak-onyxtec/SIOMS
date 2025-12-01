@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('product.listing') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <x-application-logo
+                            class="block h-9 w-auto no-underline fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
 
@@ -17,6 +18,11 @@
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('product.listing')" :active="request()->routeIs('product.listing')">
                             {{ __('Products') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('orders.my')" :active="request()->routeIs('orders.my')">
+                            {{ __('Orders') }}
                         </x-nav-link>
                     </div>
                 @else
@@ -128,6 +134,9 @@
             @if (Auth::user()->hasRole('customer'))
                 <x-responsive-nav-link :href="route('product.listing')" :active="request()->routeIs('product.listing')">
                     {{ __('Products') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('orders.my')" :active="request()->routeIs('orders.my')">
+                    {{ __('Orders') }}
                 </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
