@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WebController extends Controller
 {
@@ -29,6 +31,24 @@ class WebController extends Controller
     public function register()
     {
         return view('web.auth.register');
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+
+        $ordersQuery = Order::where('user_id', $user->id);
+
+        $totalOrders = (clone $ordersQuery)->count();
+        $activeOrders = (clone $ordersQuery)->whereIn('status', ['pending', 'confirmed'])->count();
+        $completedOrders = (clone $ordersQuery)->whereIn('status', ['completed', 'delivered'])->count();
+
+        return view('web.account.index', compact(
+            'user',
+            'totalOrders',
+            'activeOrders',
+            'completedOrders'
+        ));
     }
 
     public function orders()

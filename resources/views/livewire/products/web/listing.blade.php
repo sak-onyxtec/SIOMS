@@ -14,13 +14,19 @@
         {{-- Categories --}}
         <div class="mb-6">
             <h3 class="font-semibold mb-2">Categories</h3>
-            <select wire:model="category" wire:change="$set('category', $event.target.value)"
-                class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
-                <option value="">All Categories</option>
+            <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
                 @foreach ($categories as $cat)
-                    <option value="{{ $cat }}">{{ $cat }}</option>
+                    <label class="flex items-center justify-between text-sm cursor-pointer">
+                        <span class="text-gray-700">{{ $cat->name }} ({{ $cat->products->count() }})</span>
+                        <input
+                            type="checkbox"
+                            wire:model="selectedCategories"
+                            wire:change="resetListingPage"
+                            value="{{ $cat->id }}"
+                            class="form-checkbox rounded text-blue-600 focus:ring-blue-500">
+                    </label>
                 @endforeach
-            </select>
+            </div>
         </div>
 
         {{-- Price Range --}}
@@ -37,13 +43,13 @@
         </div>
 
         {{-- Low Stock Filter --}}
-        <div class="mb-6">
+        <!-- <div class="mb-6">
             <label class="flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" wire:model.live="lowStock" 
                     class="form-checkbox rounded text-blue-600 focus:ring-blue-500">
                 <span class="text-sm font-semibold text-gray-700">Low Stock Items (≤5)</span>
             </label>
-        </div>
+        </div> -->
 
         {{-- Clear Filters --}}
         <button wire:click="clearFilters" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 w-full font-semibold transition-colors duration-200">Clear
@@ -51,7 +57,7 @@
     </aside>
 
     {{-- Products Section --}}
-    <div class="w-full lg:w-3/4 scroll-fade-in">
+    <div class="w-full lg:w-3/4">
 
         {{-- View Mode Toggle --}}
         <div class="flex justify-end mb-4 gap-2">

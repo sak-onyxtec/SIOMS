@@ -16,6 +16,11 @@ class Index extends Component
     public $search = '';
     public $status = ''; // filter dropdown
 
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'status' => ['except' => ''],
+    ];
+
     protected $paginationTheme = 'tailwind';
     protected $statuses = [
         'pending' => 'Pending',

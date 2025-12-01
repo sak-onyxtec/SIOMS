@@ -1,7 +1,7 @@
 <!-- =======================
      ADVANCED FOOTER
 ======================= -->
-<footer class="bg-gray-900 text-gray-300 py-14 mt-20">
+<footer class="bg-gray-900 text-gray-300 py-14">
     <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
 
         <!-- About -->
@@ -16,10 +16,12 @@
         <div>
             <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
             <ul class="space-y-2">
-                <li><a href="/" class="hover:text-white">Home</a></li>
-                <li><a href="/products" class="hover:text-white">Products</a></li>
-                <li><a href="/orders" class="hover:text-white">Orders</a></li>
-                <li><a href="/contact" class="hover:text-white">Contact</a></li>
+                <li><a href="{{route('home.web')}}" class="hover:text-white">Home</a></li>
+                <li><a href="{{route('products.web')}}" class="hover:text-white">Products</a></li>
+                @auth
+                    <li><a href="{{route('orders.web.listing')}}" class="hover:text-white">Orders</a></li>
+                @endauth
+                <li><a href="{{route('contact.web')}}" class="hover:text-white">Contact</a></li>
             </ul>
         </div>
 
@@ -27,9 +29,9 @@
         <div>
             <h3 class="text-lg font-semibold text-white mb-4">Support</h3>
             <ul class="space-y-2">
-                <li><a href="/faq" class="hover:text-white">FAQ</a></li>
-                <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
-                <li><a href="/terms" class="hover:text-white">Terms & Conditions</a></li>
+                <li><a href="{{route('faq.web')}}" class="hover:text-white">FAQ</a></li>
+                <li><a href="{{route('privacy.web')}}" class="hover:text-white">Privacy Policy</a></li>
+                <li><a href="{{route('terms.web')}}" class="hover:text-white">Terms & Conditions</a></li>
             </ul>
         </div>
 

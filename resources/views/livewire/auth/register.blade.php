@@ -2,7 +2,8 @@
     <!-- Left Side (Form) -->
     <div class="flex w-full lg:w-1/2 items-center justify-center bg-gray-100">
         <div class="max-w-md w-full bg-white p-10 rounded-lg shadow-lg">
-            <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">Register</h2>
+            <h2 class="text-3xl font-bold mb-2 text-center text-gray-800">Create your SIOMS account</h2>
+            <p class="text-sm text-gray-500 mb-6 text-center">Shop faster and track your orders in one place.</p>
 
             @if (session()->has('success'))
                 <p class="bg-green-100 text-green-700 p-2 rounded mb-4 text-center">{{ session('success') }}</p>
@@ -56,12 +57,12 @@
     </div>
     <!-- Right Side (Image/Color) -->
     <div class="hidden lg:flex w-1/2 bg-blue-600 items-center justify-center relative">
-        <img src="https://source.unsplash.com/800x800/?shopping,technology" alt="Register Image"
+        <img src="{{ asset('storage/uploads/branding/register-hero.jpg') }}" alt="Register Image"
             class="object-cover w-full h-full opacity-80">
         <div class="absolute inset-0 bg-blue-700 opacity-50"></div>
         <div class="absolute text-white text-center px-6">
-            <h1 class="text-4xl font-bold mb-4">Join SIOMS Today!</h1>
-            <p class="text-lg">Create your account to enjoy a seamless shopping experience.</p>
+            <h1 class="text-4xl font-extrabold mb-2 tracking-tight">SIOMS</h1>
+            <p class="text-lg">Join today to enjoy a seamless shopping experience.</p>
         </div>
     </div>
 

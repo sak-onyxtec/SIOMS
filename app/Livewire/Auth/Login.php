@@ -19,13 +19,22 @@ class Login extends Component
         ]);
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+            if (! Auth::user()->is_active) {
+                Auth::logout();
+                session()->flash('error', 'Your account is currently inactive. Please contact support.');
+                return;
+            }
+
             if (Auth::user()->hasRole('customer')) {
                 session()->flash('success', 'Login successful!');
                 return redirect(route('home.web'));
             }
-        } else {
-            session()->flash('error', 'Invalid credentials!');
+
+            // For non-customer roles, just redirect to dashboard
+            return redirect()->route('dashboard');
         }
+
+        session()->flash('error', 'Invalid credentials!');
     }
 
     public function render()

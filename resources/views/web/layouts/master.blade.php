@@ -58,7 +58,7 @@
     @include('web.layouts.header')
 
     {{-- Page Content --}}
-    <main class="min-h-screen">
+    <main>
         @yield('content')
     </main>
 

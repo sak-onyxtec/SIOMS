@@ -12,7 +12,7 @@ class Listing extends Component
 
     public $perPage = 12;
     public $search = '';
-    public $category = '';
+    public $selectedCategories = [];
     public $minPrice = null;
     public $maxPrice = null;
     public $viewMode = 'grid';
@@ -36,10 +36,15 @@ class Listing extends Component
     public function clearFilters()
     {
         $this->search = '';
-        $this->category = '';
+        $this->selectedCategories = [];
         $this->minPrice = null;
         $this->maxPrice = null;
         $this->lowStock = false;
+    }
+
+    public function resetListingPage()
+    {
+        $this->resetPage();
     }
 
     public function render()
@@ -47,18 +52,21 @@ class Listing extends Component
         $products = Product::query()
             ->with('category')
             ->when($this->search, fn($q) => $q->where('name', 'like', '%' . $this->search . '%'))
-            ->when($this->category, fn($q) => $q->where('category_id', $this->category))
+            ->when(
+                !empty($this->selectedCategories),
+                fn($q) => $q->whereIn('category_id', $this->selectedCategories)
+            )
             ->when($this->minPrice, fn($q) => $q->where('price', '>=', $this->minPrice))
             ->when($this->maxPrice, fn($q) => $q->where('price', '<=', $this->maxPrice))
             ->when($this->lowStock, fn($q) => $q->where('quantity', '<=', 5))
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
-        $categories = \App\Models\Category::orderBy('name')->get();
+        // Fetch categories with product counts for display
+        $categories = \App\Models\Category::withCount('products')
+            ->orderBy('name')
+            ->get();
 
-        return view('livewire.products.web.listing', [
-            'products' => $products,
-            'categories' => $categories,
-        ]);
+        return view('livewire.products.web.listing', compact('products', 'categories'));
     }
 }

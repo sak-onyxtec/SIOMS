@@ -20,11 +20,6 @@
                             {{ __('Products') }}
                         </x-nav-link>
                     </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('orders.my')" :active="request()->routeIs('orders.my')">
-                            {{ __('Orders') }}
-                        </x-nav-link>
-                    </div>
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -57,7 +52,7 @@
                             $cartCount = collect($cart)->sum('quantity'); // total quantity
                         @endphp
 
-                        <a href="{{ route('cart.index') }}"
+                        <a href="{{ route('cart.web') }}"
                             class="relative inline-flex items-center px-3 py-2 text-gray-700 hover:text-gray-900">
                             <i class="fa fa-shopping-cart"></i>
                             @if ($cartCount > 0)
@@ -134,9 +129,6 @@
             @if (Auth::user()->hasRole('customer'))
                 <x-responsive-nav-link :href="route('product.listing')" :active="request()->routeIs('product.listing')">
                     {{ __('Products') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('orders.my')" :active="request()->routeIs('orders.my')">
-                    {{ __('Orders') }}
                 </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">

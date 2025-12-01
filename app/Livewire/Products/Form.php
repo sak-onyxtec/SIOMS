@@ -13,7 +13,7 @@ class Form extends Component
 {
     use WithFileUploads, FileManagerTrait;
 
-    public $product_id, $name, $sku, $category_id, $quantity, $price;
+    public $product_id, $name, $short_description, $description, $sku, $category_id, $quantity, $price;
     public $product_image, $oldImage; // Legacy single image field
     public $product_images = [];
     public $existing_images = [];
@@ -26,6 +26,8 @@ class Form extends Component
 
             $this->product_id = $product->id;
             $this->name = $product->name;
+            $this->short_description = $product->short_description;
+            $this->description = $product->description;
             $this->sku = $product->sku;
             $this->category_id = $product->category_id;
             $this->quantity = $product->quantity;
@@ -60,6 +62,8 @@ class Form extends Component
     {
         $validated = $this->validate([
             'name' => 'required',
+            'short_description' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
             'sku' => 'required|unique:products,sku,' . $this->product_id,
             'category_id' => 'nullable|exists:categories,id',
             'quantity' => 'required|numeric',

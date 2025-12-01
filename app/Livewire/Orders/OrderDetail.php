@@ -13,7 +13,7 @@ class OrderDetail extends Component
     public function mount($orderId)
     {
         $this->order = Order::where('id', $orderId)
-            ->where('user_id', Auth::id())
+            // ->where('user_id', Auth::id())
             ->with(['items.product', 'trails'=> function ($query) {
                 $query->with('user')->latest();
             }])

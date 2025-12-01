@@ -61,6 +61,22 @@
                 @enderror
             </div>
 
+            {{-- Short Description --}}
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Short Description
+                    <span class="text-xs text-gray 500 ml-1">(Shown on product cards and listings)</span>
+                </label>
+                <textarea
+                    wire:model.defer="short_description"
+                    rows="3"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('short_description') border-red-500 @enderror"
+                    placeholder="Write a brief summary of the product (1–2 sentences)..."></textarea>
+                @error('short_description') 
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
+                @enderror
+            </div>
+
             {{-- SKU --}}
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -125,6 +141,22 @@
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
                     @enderror
                 </div>
+            </div>
+
+            {{-- Detailed Description --}}
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Detail Description
+                    <span class="text-xs text-gray 500 ml-1">(Shown on product cards and listings)</span>
+                </label>
+                <textarea
+                    wire:model.defer="description"
+                    rows="3"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('description') border-red-500 @enderror"
+                    placeholder="Write a brief summary of the product (1–2 sentences)..."></textarea>
+                @error('description') 
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
+                @enderror
             </div>
 
             {{-- Multiple Product Images Section (at the end) --}}
@@ -207,3 +239,24 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <script>
+        document.addEventListener('livewire:load', () => {
+            const textarea = document.querySelector('#description-editor');
+            if (!textarea) return;
+
+            ClassicEditor
+                .create(textarea)
+                .then(editor => {
+                    editor.model.document.on('change:data', () => {
+                        @this.set('description', editor.getData());
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
+@endpush

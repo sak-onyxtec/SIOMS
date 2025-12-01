@@ -3,7 +3,9 @@
 namespace App\Livewire\Cart;
 
 use App\Models\Product;
+use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Stripe\Stripe;
@@ -123,7 +125,31 @@ class Web extends Component
             return;
         }
 
-        Stripe::setApiKey(config('services.stripe.secret'));
+        // Create order before redirecting to Stripe
+        $orderService = app(OrderService::class);
+
+        $orderRequest = new Request([
+            'total' => $this->total,
+            'items' => collect($cart)->map(function ($item, $productId) {
+                return [
+                    'product_id' => $productId,
+                    'quantity'   => $item['quantity'],
+                ];
+            })->values()->all(),
+        ]);
+
+        $order = $orderService->addOrder($orderRequest);
+
+        // Resolve Stripe secret key from config/env
+        $secret = config('services.stripe.secret') ?: env('stripe_secret', env('STRIPE_SECRET'));
+
+        if (empty($secret)) {
+            // Fail gracefully if key is missing instead of throwing raw Stripe exception
+            session()->flash('message', 'Payment configuration error: Stripe secret key is not set.');
+            return;
+        }
+
+        Stripe::setApiKey($secret);
 
         $lineItems = [];
 
@@ -144,7 +170,8 @@ class Web extends Component
             'payment_method_types' => ['card'],
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => route('orders.stripe.success') . '?session_id={CHECKOUT_SESSION_ID}',
+            'customer_email' => Auth::user()->email ?? null,
+            'success_url' => route('orders.success'),
             'cancel_url' => route('cart.web'),
         ]);
 

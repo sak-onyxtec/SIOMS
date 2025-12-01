@@ -13,7 +13,7 @@ class Detail extends Component
 
     public function mount($slug)
     {
-        $this->product = Product::with('category')->where('slug', $slug)->firstOrFail();
+        $this->product = Product::with(['category', 'images'])->where('slug', $slug)->firstOrFail();
     }
 
     public function increment()
