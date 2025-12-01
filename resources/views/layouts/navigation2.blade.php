@@ -45,12 +45,22 @@
                 </a>
             @endcan
 
-            <a href="{{ route('inventory.index') }}"
-                class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
+            @can('manage-inventory')
+                <a href="{{ route('inventory.index') }}"
+                    class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
                {{ request()->routeIs('inventory.index') ? 'bg-blue-500 text-white' : '' }}">
-                <i class="fa fa-box w-5"></i>
-                <span class="ml-2">Inventory</span>
-            </a>
+                    <i class="fa fa-box w-5"></i>
+                    <span class="ml-2">Inventory</span>
+                </a>
+            @endcan
+            @can('manage-orders')
+                <a href="{{ route('orders.index') }}"
+                    class="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 no-underline hover:bg-blue-500 hover:text-white transition
+               {{ request()->routeIs('orders.index') ? 'bg-blue-500 text-white' : '' }}">
+                    <i class="fa fa-box w-5"></i>
+                    <span class="ml-2">Orders</span>
+                </a>
+            @endcan
 
             <!-- Profile -->
             <div class="mt-6 border-t pt-3">

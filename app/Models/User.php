@@ -22,6 +22,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'is_active',
+        'first_login',
+        'profile_image',
     ];
 
     /**
@@ -43,8 +46,19 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'is_active' => 'boolean',
             // 'password' => 'hashed',
         ];
+    }
+
+    public function getProfileImageAttribute($value)
+    {
+        if ($value) {
+            // Stored via FileManagerTrait into storage/app/public/uploads/users
+            return asset('storage/uploads/users/' . $value);
+        }
+
+        return null;
     }
 
 

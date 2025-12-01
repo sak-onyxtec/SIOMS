@@ -18,10 +18,7 @@ class Listing extends Component
         info($this->search);
         $products = Product::query()
             ->when($this->search, function($query) {
-                $query->whereAny([
-                    'name',
-                    'category'
-                ],'LIKE','%'.$this->search.'%');
+                $query->where('name', 'LIKE', '%'.$this->search.'%');
             })
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
