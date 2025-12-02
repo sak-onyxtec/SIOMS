@@ -1,6 +1,11 @@
 <!-- =======================
      ADVANCED HEADER WITH CART & USER DROPDOWN
 ======================= -->
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+</style>
 <header class="bg-white/90 backdrop-blur shadow-sm sticky top-0 z-50 animate-fade-in">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
 
@@ -57,7 +62,7 @@
                     </button>
 
                     <!-- Dropdown Menu -->
-                    <div x-show="open" @click.away="open = false" x-transition
+                    <div x-show="open" x-cloak @click.away="open = false" x-transition
                         class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 animate-fade-in-up">
                         <a href="{{ route('web.profile') }}"
                             class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
