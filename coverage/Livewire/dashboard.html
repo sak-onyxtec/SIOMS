@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /opt/lampp/htdocs/SIOMS/app/Livewire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css?v=11.0.11" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css?v=11.0.11" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css?v=11.0.11" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">/opt/lampp/htdocs/SIOMS/app</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Livewire</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Auth/Login.php.html#8">App\Livewire\Auth\Login</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/Register.php.html#9">App\Livewire\Auth\Register</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#15">App\Livewire\Cart\Index</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#15">App\Livewire\Cart\Web</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Customers/Index.php.html#11">App\Livewire\Customers\Index</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Customers/View.php.html#9">App\Livewire\Customers\View</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Dashboard/Index.php.html#12">App\Livewire\Dashboard\Index</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Index.php.html#12">App\Livewire\Orders\Index</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/MyOrders.php.html#10">App\Livewire\Orders\MyOrders</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/OrderDetail.php.html#9">App\Livewire\Orders\OrderDetail</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Web/Detail.php.html#9">App\Livewire\Orders\Web\Detail</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Web/Listing.php.html#10">App\Livewire\Orders\Web\Listing</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Detail.php.html#9">App\Livewire\Products\Detail</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Form.php.html#12">App\Livewire\Products\Form</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Index.php.html#11">App\Livewire\Products\Index</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Listing.php.html#9">App\Livewire\Products\Listing</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Logs.php.html#10">App\Livewire\Products\Logs</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/View.php.html#10">App\Livewire\Products\View</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#9">App\Livewire\Products\Web\Detail</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Listing.php.html#9">App\Livewire\Products\Web\Listing</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Roles/RoleIndex.php.html#8">App\Livewire\Roles\RoleIndex</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Roles/RolePermissions.php.html#9">App\Livewire\Roles\RolePermissions</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Form.php.html#14">App\Livewire\Staffs\Form</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Index.php.html#11">App\Livewire\Staffs\Index</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Web/Profile/Edit.php.html#13">App\Livewire\Web\Profile\Edit</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Inventory/Index.php.html#12">App\Livewire\Inventory\Index</a></td><td class="text-right">72%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Cart/Web.php.html#15">App\Livewire\Cart\Web</a></td><td class="text-right">650</td></tr>
+       <tr><td><a href="Cart/Index.php.html#15">App\Livewire\Cart\Index</a></td><td class="text-right">380</td></tr>
+       <tr><td><a href="Products/Form.php.html#12">App\Livewire\Products\Form</a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="Products/Index.php.html#11">App\Livewire\Products\Index</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Staffs/Form.php.html#14">App\Livewire\Staffs\Form</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Products/Detail.php.html#9">App\Livewire\Products\Detail</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#9">App\Livewire\Products\Web\Detail</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Staffs/Index.php.html#11">App\Livewire\Staffs\Index</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Customers/Index.php.html#11">App\Livewire\Customers\Index</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Products/Web/Listing.php.html#9">App\Livewire\Products\Web\Listing</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Orders/Index.php.html#12">App\Livewire\Orders\Index</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Products/View.php.html#10">App\Livewire\Products\View</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Auth/Login.php.html#8">App\Livewire\Auth\Login</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Orders/Web/Listing.php.html#10">App\Livewire\Orders\Web\Listing</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Web/Profile/Edit.php.html#13">App\Livewire\Web\Profile\Edit</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Inventory/Index.php.html#12">App\Livewire\Inventory\Index</a></td><td class="text-right">14</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Auth/Login.php.html#14"><abbr title="App\Livewire\Auth\Login::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/Login.php.html#40"><abbr title="App\Livewire\Auth\Login::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/Register.php.html#16"><abbr title="App\Livewire\Auth\Register::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Auth/Register.php.html#37"><abbr title="App\Livewire\Auth\Register::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#19"><abbr title="App\Livewire\Cart\Index::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#24"><abbr title="App\Livewire\Cart\Index::increment">increment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#39"><abbr title="App\Livewire\Cart\Index::decrement">decrement</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#48"><abbr title="App\Livewire\Cart\Index::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#56"><abbr title="App\Livewire\Cart\Index::updateSession">updateSession</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#61"><abbr title="App\Livewire\Cart\Index::getTotalProperty">getTotalProperty</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#68"><abbr title="App\Livewire\Cart\Index::checkout">checkout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#137"><abbr title="App\Livewire\Cart\Index::generateOrderUID">generateOrderUID</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Index.php.html#144"><abbr title="App\Livewire\Cart\Index::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#23"><abbr title="App\Livewire\Cart\Web::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#28"><abbr title="App\Livewire\Cart\Web::loadCart">loadCart</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#34"><abbr title="App\Livewire\Cart\Web::increment">increment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#57"><abbr title="App\Livewire\Cart\Web::decrement">decrement</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#76"><abbr title="App\Livewire\Cart\Web::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#94"><abbr title="App\Livewire\Cart\Web::clearCart">clearCart</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#108"><abbr title="App\Livewire\Cart\Web::calculateTotals">calculateTotals</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#115"><abbr title="App\Livewire\Cart\Web::checkout">checkout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cart/Web.php.html#181"><abbr title="App\Livewire\Cart\Web::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Customers/Index.php.html#20"><abbr title="App\Livewire\Customers\Index::updatingSearch">updatingSearch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Customers/Index.php.html#25"><abbr title="App\Livewire\Customers\Index::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Customers/Index.php.html#36"><abbr title="App\Livewire\Customers\Index::toggleActive">toggleActive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Customers/Index.php.html#56"><abbr title="App\Livewire\Customers\Index::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Customers/View.php.html#13"><abbr title="App\Livewire\Customers\View::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Customers/View.php.html#20"><abbr title="App\Livewire\Customers\View::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Dashboard/Index.php.html#14"><abbr title="App\Livewire\Dashboard\Index::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Inventory/Index.php.html#37"><abbr title="App\Livewire\Inventory\Index::updatedFilterProductId">updatedFilterProductId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Inventory/Index.php.html#42"><abbr title="App\Livewire\Inventory\Index::updatedFilterType">updatedFilterType</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Inventory/Index.php.html#71"><abbr title="App\Livewire\Inventory\Index::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Index.php.html#34"><abbr title="App\Livewire\Orders\Index::changeStatus">changeStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Index.php.html#69"><abbr title="App\Livewire\Orders\Index::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/MyOrders.php.html#17"><abbr title="App\Livewire\Orders\MyOrders::updatingSearch">updatingSearch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/MyOrders.php.html#21"><abbr title="App\Livewire\Orders\MyOrders::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/OrderDetail.php.html#13"><abbr title="App\Livewire\Orders\OrderDetail::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/OrderDetail.php.html#23"><abbr title="App\Livewire\Orders\OrderDetail::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Web/Detail.php.html#13"><abbr title="App\Livewire\Orders\Web\Detail::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Web/Detail.php.html#26"><abbr title="App\Livewire\Orders\Web\Detail::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Web/Listing.php.html#19"><abbr title="App\Livewire\Orders\Web\Listing::updatingSearch">updatingSearch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Web/Listing.php.html#24"><abbr title="App\Livewire\Orders\Web\Listing::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Orders/Web/Listing.php.html#35"><abbr title="App\Livewire\Orders\Web\Listing::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Detail.php.html#14"><abbr title="App\Livewire\Products\Detail::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Detail.php.html#20"><abbr title="App\Livewire\Products\Detail::increment">increment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Detail.php.html#29"><abbr title="App\Livewire\Products\Detail::decrement">decrement</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Detail.php.html#36"><abbr title="App\Livewire\Products\Detail::addToCart">addToCart</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Detail.php.html#59"><abbr title="App\Livewire\Products\Detail::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Detail.php.html#68"><abbr title="App\Livewire\Products\Detail::similarProducts">similarProducts</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Form.php.html#22"><abbr title="App\Livewire\Products\Form::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Form.php.html#46"><abbr title="App\Livewire\Products\Form::removeNewImage">removeNewImage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Form.php.html#52"><abbr title="App\Livewire\Products\Form::removeExistingImage">removeExistingImage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Form.php.html#61"><abbr title="App\Livewire\Products\Form::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Form.php.html#116"><abbr title="App\Livewire\Products\Form::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Index.php.html#23"><abbr title="App\Livewire\Products\Index::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Index.php.html#32"><abbr title="App\Livewire\Products\Index::updatingSearch">updatingSearch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Index.php.html#37"><abbr title="App\Livewire\Products\Index::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Index.php.html#48"><abbr title="App\Livewire\Products\Index::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Index.php.html#55"><abbr title="App\Livewire\Products\Index::selectProduct">selectProduct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Index.php.html#60"><abbr title="App\Livewire\Products\Index::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Listing.php.html#16"><abbr title="App\Livewire\Products\Listing::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Logs.php.html#17"><abbr title="App\Livewire\Products\Logs::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Logs.php.html#28"><abbr title="App\Livewire\Products\Logs::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/View.php.html#17"><abbr title="App\Livewire\Products\View::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/View.php.html#46"><abbr title="App\Livewire\Products\View::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#14"><abbr title="App\Livewire\Products\Web\Detail::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#19"><abbr title="App\Livewire\Products\Web\Detail::increment">increment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#28"><abbr title="App\Livewire\Products\Web\Detail::decrement">decrement</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#35"><abbr title="App\Livewire\Products\Web\Detail::addToCart">addToCart</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#67"><abbr title="App\Livewire\Products\Web\Detail::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Listing.php.html#23"><abbr title="App\Livewire\Products\Web\Listing::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Listing.php.html#31"><abbr title="App\Livewire\Products\Web\Listing::setViewMode">setViewMode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Listing.php.html#36"><abbr title="App\Livewire\Products\Web\Listing::clearFilters">clearFilters</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Listing.php.html#45"><abbr title="App\Livewire\Products\Web\Listing::resetListingPage">resetListingPage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Products/Web/Listing.php.html#50"><abbr title="App\Livewire\Products\Web\Listing::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Roles/RoleIndex.php.html#10"><abbr title="App\Livewire\Roles\RoleIndex::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Roles/RolePermissions.php.html#15"><abbr title="App\Livewire\Roles\RolePermissions::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Roles/RolePermissions.php.html#22"><abbr title="App\Livewire\Roles\RolePermissions::savePermissions">savePermissions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Roles/RolePermissions.php.html#29"><abbr title="App\Livewire\Roles\RolePermissions::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Form.php.html#20"><abbr title="App\Livewire\Staffs\Form::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Form.php.html#31"><abbr title="App\Livewire\Staffs\Form::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Form.php.html#86"><abbr title="App\Livewire\Staffs\Form::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Index.php.html#20"><abbr title="App\Livewire\Staffs\Index::updatingSearch">updatingSearch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Index.php.html#25"><abbr title="App\Livewire\Staffs\Index::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Index.php.html#36"><abbr title="App\Livewire\Staffs\Index::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Index.php.html#44"><abbr title="App\Livewire\Staffs\Index::toggleActive">toggleActive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Staffs/Index.php.html#64"><abbr title="App\Livewire\Staffs\Index::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Web/Profile/Edit.php.html#23"><abbr title="App\Livewire\Web\Profile\Edit::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Web/Profile/Edit.php.html#34"><abbr title="App\Livewire\Web\Profile\Edit::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Web/Profile/Edit.php.html#75"><abbr title="App\Livewire\Web\Profile\Edit::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Inventory/Index.php.html#83"><abbr title="App\Livewire\Inventory\Index::render">render</abbr></a></td><td class="text-right">80%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Products/Form.php.html#61"><abbr title="App\Livewire\Products\Form::save">save</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Cart/Index.php.html#68"><abbr title="App\Livewire\Cart\Index::checkout">checkout</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Cart/Web.php.html#115"><abbr title="App\Livewire\Cart\Web::checkout">checkout</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Staffs/Form.php.html#31"><abbr title="App\Livewire\Staffs\Form::save">save</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Cart/Web.php.html#34"><abbr title="App\Livewire\Cart\Web::increment">increment</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Orders/Index.php.html#34"><abbr title="App\Livewire\Orders\Index::changeStatus">changeStatus</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Products/View.php.html#17"><abbr title="App\Livewire\Products\View::mount">mount</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Auth/Login.php.html#14"><abbr title="App\Livewire\Auth\Login::login">login</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Cart/Web.php.html#57"><abbr title="App\Livewire\Cart\Web::decrement">decrement</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Cart/Index.php.html#24"><abbr title="App\Livewire\Cart\Index::increment">increment</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Cart/Index.php.html#39"><abbr title="App\Livewire\Cart\Index::decrement">decrement</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Cart/Web.php.html#76"><abbr title="App\Livewire\Cart\Web::remove">remove</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Cart/Web.php.html#94"><abbr title="App\Livewire\Cart\Web::clearCart">clearCart</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Customers/Index.php.html#25"><abbr title="App\Livewire\Customers\Index::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Inventory/Index.php.html#71"><abbr title="App\Livewire\Inventory\Index::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Orders/Web/Listing.php.html#24"><abbr title="App\Livewire\Orders\Web\Listing::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Products/Index.php.html#23"><abbr title="App\Livewire\Products\Index::mount">mount</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Products/Index.php.html#37"><abbr title="App\Livewire\Products\Index::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#35"><abbr title="App\Livewire\Products\Web\Detail::addToCart">addToCart</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Products/Web/Listing.php.html#23"><abbr title="App\Livewire\Products\Web\Listing::mount">mount</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Staffs/Form.php.html#20"><abbr title="App\Livewire\Staffs\Form::mount">mount</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Staffs/Index.php.html#25"><abbr title="App\Livewire\Staffs\Index::sortByColumn">sortByColumn</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Cart/Index.php.html#48"><abbr title="App\Livewire\Cart\Index::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Customers/Index.php.html#36"><abbr title="App\Livewire\Customers\Index::toggleActive">toggleActive</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Products/Detail.php.html#20"><abbr title="App\Livewire\Products\Detail::increment">increment</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Products/Detail.php.html#29"><abbr title="App\Livewire\Products\Detail::decrement">decrement</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Products/Detail.php.html#36"><abbr title="App\Livewire\Products\Detail::addToCart">addToCart</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Products/Form.php.html#22"><abbr title="App\Livewire\Products\Form::mount">mount</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#19"><abbr title="App\Livewire\Products\Web\Detail::increment">increment</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Products/Web/Detail.php.html#28"><abbr title="App\Livewire\Products\Web\Detail::decrement">decrement</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Staffs/Index.php.html#44"><abbr title="App\Livewire\Staffs\Index::toggleActive">toggleActive</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Web/Profile/Edit.php.html#34"><abbr title="App\Livewire\Web\Profile\Edit::save">save</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Inventory/Index.php.html#83"><abbr title="App\Livewire\Inventory\Index::render">render</abbr></a></td><td class="text-right">5</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.11</a> using <a href="https://www.php.net/" target="_top">PHP 8.2.29</a> and <a href="https://phpunit.de/">PHPUnit 11.5.44</a> at Tue Dec 2 11:47:32 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js?v=11.0.11" type="text/javascript"></script>
+  <script src="../_js/d3.min.js?v=11.0.11" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js?v=11.0.11" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([25,0,0,0,0,0,0,0,1,0,0,2], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([90,0,0,0,0,0,0,0,0,1,0,7], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,5,"<a href=\"Auth\/Login.php.html#8\">App\\Livewire\\Auth\\Login<\/a>"],[0,2,"<a href=\"Auth\/Register.php.html#9\">App\\Livewire\\Auth\\Register<\/a>"],[0,19,"<a href=\"Cart\/Index.php.html#15\">App\\Livewire\\Cart\\Index<\/a>"],[0,25,"<a href=\"Cart\/Web.php.html#15\">App\\Livewire\\Cart\\Web<\/a>"],[0,7,"<a href=\"Customers\/Index.php.html#11\">App\\Livewire\\Customers\\Index<\/a>"],[0,2,"<a href=\"Customers\/View.php.html#9\">App\\Livewire\\Customers\\View<\/a>"],[0,1,"<a href=\"Dashboard\/Index.php.html#12\">App\\Livewire\\Dashboard\\Index<\/a>"],[72.72727272727273,12,"<a href=\"Inventory\/Index.php.html#12\">App\\Livewire\\Inventory\\Index<\/a>"],[0,6,"<a href=\"Orders\/Index.php.html#12\">App\\Livewire\\Orders\\Index<\/a>"],[0,2,"<a href=\"Orders\/MyOrders.php.html#10\">App\\Livewire\\Orders\\MyOrders<\/a>"],[0,2,"<a href=\"Orders\/OrderDetail.php.html#9\">App\\Livewire\\Orders\\OrderDetail<\/a>"],[0,2,"<a href=\"Orders\/Web\/Detail.php.html#9\">App\\Livewire\\Orders\\Web\\Detail<\/a>"],[0,5,"<a href=\"Orders\/Web\/Listing.php.html#10\">App\\Livewire\\Orders\\Web\\Listing<\/a>"],[0,9,"<a href=\"Products\/Detail.php.html#9\">App\\Livewire\\Products\\Detail<\/a>"],[0,12,"<a href=\"Products\/Form.php.html#12\">App\\Livewire\\Products\\Form<\/a>"],[0,10,"<a href=\"Products\/Index.php.html#11\">App\\Livewire\\Products\\Index<\/a>"],[0,1,"<a href=\"Products\/Listing.php.html#9\">App\\Livewire\\Products\\Listing<\/a>"],[0,2,"<a href=\"Products\/Logs.php.html#10\">App\\Livewire\\Products\\Logs<\/a>"],[0,6,"<a href=\"Products\/View.php.html#10\">App\\Livewire\\Products\\View<\/a>"],[0,9,"<a href=\"Products\/Web\/Detail.php.html#9\">App\\Livewire\\Products\\Web\\Detail<\/a>"],[100,1,"<a href=\"Products\/Web\/Feature.php.html#8\">App\\Livewire\\Products\\Web\\Feature<\/a>"],[0,7,"<a href=\"Products\/Web\/Listing.php.html#9\">App\\Livewire\\Products\\Web\\Listing<\/a>"],[0,1,"<a href=\"Roles\/RoleIndex.php.html#8\">App\\Livewire\\Roles\\RoleIndex<\/a>"],[0,3,"<a href=\"Roles\/RolePermissions.php.html#9\">App\\Livewire\\Roles\\RolePermissions<\/a>"],[0,10,"<a href=\"Staffs\/Form.php.html#14\">App\\Livewire\\Staffs\\Form<\/a>"],[0,8,"<a href=\"Staffs\/Index.php.html#11\">App\\Livewire\\Staffs\\Index<\/a>"],[100,4,"<a href=\"Web\/HeaderCart.php.html#8\">App\\Livewire\\Web\\HeaderCart<\/a>"],[0,4,"<a href=\"Web\/Profile\/Edit.php.html#13\">App\\Livewire\\Web\\Profile\\Edit<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,4,"<a href=\"Auth\/Login.php.html#14\">App\\Livewire\\Auth\\Login::login<\/a>"],[0,1,"<a href=\"Auth\/Login.php.html#40\">App\\Livewire\\Auth\\Login::render<\/a>"],[0,1,"<a href=\"Auth\/Register.php.html#16\">App\\Livewire\\Auth\\Register::register<\/a>"],[0,1,"<a href=\"Auth\/Register.php.html#37\">App\\Livewire\\Auth\\Register::render<\/a>"],[0,1,"<a href=\"Cart\/Index.php.html#19\">App\\Livewire\\Cart\\Index::mount<\/a>"],[0,3,"<a href=\"Cart\/Index.php.html#24\">App\\Livewire\\Cart\\Index::increment<\/a>"],[0,3,"<a href=\"Cart\/Index.php.html#39\">App\\Livewire\\Cart\\Index::decrement<\/a>"],[0,2,"<a href=\"Cart\/Index.php.html#48\">App\\Livewire\\Cart\\Index::remove<\/a>"],[0,1,"<a href=\"Cart\/Index.php.html#56\">App\\Livewire\\Cart\\Index::updateSession<\/a>"],[0,1,"<a href=\"Cart\/Index.php.html#61\">App\\Livewire\\Cart\\Index::getTotalProperty<\/a>"],[0,6,"<a href=\"Cart\/Index.php.html#68\">App\\Livewire\\Cart\\Index::checkout<\/a>"],[0,1,"<a href=\"Cart\/Index.php.html#137\">App\\Livewire\\Cart\\Index::generateOrderUID<\/a>"],[0,1,"<a href=\"Cart\/Index.php.html#144\">App\\Livewire\\Cart\\Index::render<\/a>"],[0,1,"<a href=\"Cart\/Web.php.html#23\">App\\Livewire\\Cart\\Web::mount<\/a>"],[0,1,"<a href=\"Cart\/Web.php.html#28\">App\\Livewire\\Cart\\Web::loadCart<\/a>"],[0,5,"<a href=\"Cart\/Web.php.html#34\">App\\Livewire\\Cart\\Web::increment<\/a>"],[0,4,"<a href=\"Cart\/Web.php.html#57\">App\\Livewire\\Cart\\Web::decrement<\/a>"],[0,3,"<a href=\"Cart\/Web.php.html#76\">App\\Livewire\\Cart\\Web::remove<\/a>"],[0,3,"<a href=\"Cart\/Web.php.html#94\">App\\Livewire\\Cart\\Web::clearCart<\/a>"],[0,1,"<a href=\"Cart\/Web.php.html#108\">App\\Livewire\\Cart\\Web::calculateTotals<\/a>"],[0,6,"<a href=\"Cart\/Web.php.html#115\">App\\Livewire\\Cart\\Web::checkout<\/a>"],[0,1,"<a href=\"Cart\/Web.php.html#181\">App\\Livewire\\Cart\\Web::render<\/a>"],[0,1,"<a href=\"Customers\/Index.php.html#20\">App\\Livewire\\Customers\\Index::updatingSearch<\/a>"],[0,3,"<a href=\"Customers\/Index.php.html#25\">App\\Livewire\\Customers\\Index::sortByColumn<\/a>"],[0,2,"<a href=\"Customers\/Index.php.html#36\">App\\Livewire\\Customers\\Index::toggleActive<\/a>"],[0,1,"<a href=\"Customers\/Index.php.html#56\">App\\Livewire\\Customers\\Index::render<\/a>"],[0,1,"<a href=\"Customers\/View.php.html#13\">App\\Livewire\\Customers\\View::mount<\/a>"],[0,1,"<a href=\"Customers\/View.php.html#20\">App\\Livewire\\Customers\\View::render<\/a>"],[0,1,"<a href=\"Dashboard\/Index.php.html#14\">App\\Livewire\\Dashboard\\Index::render<\/a>"],[100,1,"<a href=\"Inventory\/Index.php.html#29\">App\\Livewire\\Inventory\\Index::mount<\/a>"],[0,1,"<a href=\"Inventory\/Index.php.html#37\">App\\Livewire\\Inventory\\Index::updatedFilterProductId<\/a>"],[0,1,"<a href=\"Inventory\/Index.php.html#42\">App\\Livewire\\Inventory\\Index::updatedFilterType<\/a>"],[100,1,"<a href=\"Inventory\/Index.php.html#47\">App\\Livewire\\Inventory\\Index::saveTransaction<\/a>"],[0,3,"<a href=\"Inventory\/Index.php.html#71\">App\\Livewire\\Inventory\\Index::sortByColumn<\/a>"],[80,5,"<a href=\"Inventory\/Index.php.html#83\">App\\Livewire\\Inventory\\Index::render<\/a>"],[0,5,"<a href=\"Orders\/Index.php.html#34\">App\\Livewire\\Orders\\Index::changeStatus<\/a>"],[0,1,"<a href=\"Orders\/Index.php.html#69\">App\\Livewire\\Orders\\Index::render<\/a>"],[0,1,"<a href=\"Orders\/MyOrders.php.html#17\">App\\Livewire\\Orders\\MyOrders::updatingSearch<\/a>"],[0,1,"<a href=\"Orders\/MyOrders.php.html#21\">App\\Livewire\\Orders\\MyOrders::render<\/a>"],[0,1,"<a href=\"Orders\/OrderDetail.php.html#13\">App\\Livewire\\Orders\\OrderDetail::mount<\/a>"],[0,1,"<a href=\"Orders\/OrderDetail.php.html#23\">App\\Livewire\\Orders\\OrderDetail::render<\/a>"],[0,1,"<a href=\"Orders\/Web\/Detail.php.html#13\">App\\Livewire\\Orders\\Web\\Detail::mount<\/a>"],[0,1,"<a href=\"Orders\/Web\/Detail.php.html#26\">App\\Livewire\\Orders\\Web\\Detail::render<\/a>"],[0,1,"<a href=\"Orders\/Web\/Listing.php.html#19\">App\\Livewire\\Orders\\Web\\Listing::updatingSearch<\/a>"],[0,3,"<a href=\"Orders\/Web\/Listing.php.html#24\">App\\Livewire\\Orders\\Web\\Listing::sortByColumn<\/a>"],[0,1,"<a href=\"Orders\/Web\/Listing.php.html#35\">App\\Livewire\\Orders\\Web\\Listing::render<\/a>"],[0,1,"<a href=\"Products\/Detail.php.html#14\">App\\Livewire\\Products\\Detail::mount<\/a>"],[0,2,"<a href=\"Products\/Detail.php.html#20\">App\\Livewire\\Products\\Detail::increment<\/a>"],[0,2,"<a href=\"Products\/Detail.php.html#29\">App\\Livewire\\Products\\Detail::decrement<\/a>"],[0,2,"<a href=\"Products\/Detail.php.html#36\">App\\Livewire\\Products\\Detail::addToCart<\/a>"],[0,1,"<a href=\"Products\/Detail.php.html#59\">App\\Livewire\\Products\\Detail::render<\/a>"],[0,1,"<a href=\"Products\/Detail.php.html#68\">App\\Livewire\\Products\\Detail::similarProducts<\/a>"],[0,2,"<a href=\"Products\/Form.php.html#22\">App\\Livewire\\Products\\Form::mount<\/a>"],[0,1,"<a href=\"Products\/Form.php.html#46\">App\\Livewire\\Products\\Form::removeNewImage<\/a>"],[0,1,"<a href=\"Products\/Form.php.html#52\">App\\Livewire\\Products\\Form::removeExistingImage<\/a>"],[0,7,"<a href=\"Products\/Form.php.html#61\">App\\Livewire\\Products\\Form::save<\/a>"],[0,1,"<a href=\"Products\/Form.php.html#116\">App\\Livewire\\Products\\Form::render<\/a>"],[0,3,"<a href=\"Products\/Index.php.html#23\">App\\Livewire\\Products\\Index::mount<\/a>"],[0,1,"<a href=\"Products\/Index.php.html#32\">App\\Livewire\\Products\\Index::updatingSearch<\/a>"],[0,3,"<a href=\"Products\/Index.php.html#37\">App\\Livewire\\Products\\Index::sortByColumn<\/a>"],[0,1,"<a href=\"Products\/Index.php.html#48\">App\\Livewire\\Products\\Index::delete<\/a>"],[0,1,"<a href=\"Products\/Index.php.html#55\">App\\Livewire\\Products\\Index::selectProduct<\/a>"],[0,1,"<a href=\"Products\/Index.php.html#60\">App\\Livewire\\Products\\Index::render<\/a>"],[0,1,"<a href=\"Products\/Listing.php.html#16\">App\\Livewire\\Products\\Listing::render<\/a>"],[0,1,"<a href=\"Products\/Logs.php.html#17\">App\\Livewire\\Products\\Logs::mount<\/a>"],[0,1,"<a href=\"Products\/Logs.php.html#28\">App\\Livewire\\Products\\Logs::render<\/a>"],[0,5,"<a href=\"Products\/View.php.html#17\">App\\Livewire\\Products\\View::mount<\/a>"],[0,1,"<a href=\"Products\/View.php.html#46\">App\\Livewire\\Products\\View::render<\/a>"],[0,1,"<a href=\"Products\/Web\/Detail.php.html#14\">App\\Livewire\\Products\\Web\\Detail::mount<\/a>"],[0,2,"<a href=\"Products\/Web\/Detail.php.html#19\">App\\Livewire\\Products\\Web\\Detail::increment<\/a>"],[0,2,"<a href=\"Products\/Web\/Detail.php.html#28\">App\\Livewire\\Products\\Web\\Detail::decrement<\/a>"],[0,3,"<a href=\"Products\/Web\/Detail.php.html#35\">App\\Livewire\\Products\\Web\\Detail::addToCart<\/a>"],[0,1,"<a href=\"Products\/Web\/Detail.php.html#67\">App\\Livewire\\Products\\Web\\Detail::render<\/a>"],[100,1,"<a href=\"Products\/Web\/Feature.php.html#10\">App\\Livewire\\Products\\Web\\Feature::render<\/a>"],[0,3,"<a href=\"Products\/Web\/Listing.php.html#23\">App\\Livewire\\Products\\Web\\Listing::mount<\/a>"],[0,1,"<a href=\"Products\/Web\/Listing.php.html#31\">App\\Livewire\\Products\\Web\\Listing::setViewMode<\/a>"],[0,1,"<a href=\"Products\/Web\/Listing.php.html#36\">App\\Livewire\\Products\\Web\\Listing::clearFilters<\/a>"],[0,1,"<a href=\"Products\/Web\/Listing.php.html#45\">App\\Livewire\\Products\\Web\\Listing::resetListingPage<\/a>"],[0,1,"<a href=\"Products\/Web\/Listing.php.html#50\">App\\Livewire\\Products\\Web\\Listing::render<\/a>"],[0,1,"<a href=\"Roles\/RoleIndex.php.html#10\">App\\Livewire\\Roles\\RoleIndex::render<\/a>"],[0,1,"<a href=\"Roles\/RolePermissions.php.html#15\">App\\Livewire\\Roles\\RolePermissions::mount<\/a>"],[0,1,"<a href=\"Roles\/RolePermissions.php.html#22\">App\\Livewire\\Roles\\RolePermissions::savePermissions<\/a>"],[0,1,"<a href=\"Roles\/RolePermissions.php.html#29\">App\\Livewire\\Roles\\RolePermissions::render<\/a>"],[0,3,"<a href=\"Staffs\/Form.php.html#20\">App\\Livewire\\Staffs\\Form::mount<\/a>"],[0,6,"<a href=\"Staffs\/Form.php.html#31\">App\\Livewire\\Staffs\\Form::save<\/a>"],[0,1,"<a href=\"Staffs\/Form.php.html#86\">App\\Livewire\\Staffs\\Form::render<\/a>"],[0,1,"<a href=\"Staffs\/Index.php.html#20\">App\\Livewire\\Staffs\\Index::updatingSearch<\/a>"],[0,3,"<a href=\"Staffs\/Index.php.html#25\">App\\Livewire\\Staffs\\Index::sortByColumn<\/a>"],[0,1,"<a href=\"Staffs\/Index.php.html#36\">App\\Livewire\\Staffs\\Index::delete<\/a>"],[0,2,"<a href=\"Staffs\/Index.php.html#44\">App\\Livewire\\Staffs\\Index::toggleActive<\/a>"],[0,1,"<a href=\"Staffs\/Index.php.html#64\">App\\Livewire\\Staffs\\Index::render<\/a>"],[100,1,"<a href=\"Web\/HeaderCart.php.html#12\">App\\Livewire\\Web\\HeaderCart::mount<\/a>"],[100,1,"<a href=\"Web\/HeaderCart.php.html#17\">App\\Livewire\\Web\\HeaderCart::updateCartCount<\/a>"],[100,1,"<a href=\"Web\/HeaderCart.php.html#22\">App\\Livewire\\Web\\HeaderCart::getCartCount<\/a>"],[100,1,"<a href=\"Web\/HeaderCart.php.html#28\">App\\Livewire\\Web\\HeaderCart::render<\/a>"],[0,1,"<a href=\"Web\/Profile\/Edit.php.html#23\">App\\Livewire\\Web\\Profile\\Edit::mount<\/a>"],[0,2,"<a href=\"Web\/Profile\/Edit.php.html#34\">App\\Livewire\\Web\\Profile\\Edit::save<\/a>"],[0,1,"<a href=\"Web\/Profile\/Edit.php.html#75\">App\\Livewire\\Web\\Profile\\Edit::render<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
