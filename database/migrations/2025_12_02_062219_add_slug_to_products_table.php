@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            if (!Schema::hasColumn('users', 'is_active')) {
-                $table->boolean('is_active')->default(true)->after('password')->nullable();
+        Schema::table('products', function (Blueprint $table) {
+            if (!Schema::hasColumn('products', 'slug')) {
+                $table->string('slug')->nullable()->unique()->after('name');
             }
         });
     }
@@ -23,9 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            if (Schema::hasColumn('users', 'is_active')) {
-                $table->dropColumn('is_active');
+        Schema::table('products', function (Blueprint $table) {
+            if (Schema::hasColumn('products', 'slug')) {
+                $table->dropColumn('slug');
             }
         });
     }

@@ -97,18 +97,75 @@
     <!-- =======================
              STATS SECTION
         ======================= -->
-    <section class="bg-gradient-to-r from-blue-600 to-blue-500 text-white py-20">
+    <section 
+        x-data="{
+            productsCount: 0,
+            customersCount: 0,
+            satisfactionRate: 0,
+            animated: false,
+            init() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !this.animated) {
+                            this.animated = true;
+                            this.animateCounter('productsCount', 10, 2000, 'K+');
+                            this.animateCounter('customersCount', 50, 2000, 'K+');
+                            this.animatePercentage('satisfactionRate', 99.9, 2000);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                observer.observe(this.$el);
+            },
+            animateCounter(property, target, duration, suffix = '') {
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        this[property] = target;
+                        clearInterval(timer);
+                    } else {
+                        this[property] = Math.floor(current);
+                    }
+                }, 16);
+            },
+            animatePercentage(property, target, duration) {
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        this[property] = target;
+                        clearInterval(timer);
+                    } else {
+                        this[property] = parseFloat(current.toFixed(1));
+                    }
+                }, 16);
+            }
+        }"
+        class="bg-gradient-to-r from-blue-600 to-blue-500 text-white py-20">
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 text-center px-6 gap-12">
-            <div class="scroll-fade-in transform hover:scale-110 transition-transform duration-300">
-                <h3 class="text-5xl md:text-6xl font-extrabold mb-2">10K+</h3>
+            <div class="transform hover:scale-110 transition-transform duration-300">
+                <h3 class="text-5xl md:text-6xl font-extrabold mb-2">
+                    <span x-text="productsCount"></span>K+
+                </h3>
                 <p class="text-xl text-blue-50">Products Available</p>
             </div>
-            <div class="scroll-fade-in transform hover:scale-110 transition-transform duration-300">
-                <h3 class="text-5xl md:text-6xl font-extrabold mb-2">50K+</h3>
+            <div class="transform hover:scale-110 transition-transform duration-300">
+                <h3 class="text-5xl md:text-6xl font-extrabold mb-2">
+                    <span x-text="customersCount"></span>K+
+                </h3>
                 <p class="text-xl text-blue-50">Happy Customers</p>
             </div>
-            <div class="scroll-fade-in transform hover:scale-110 transition-transform duration-300">
-                <h3 class="text-5xl md:text-6xl font-extrabold mb-2">99.9%</h3>
+            <div class="transform hover:scale-110 transition-transform duration-300">
+                <h3 class="text-5xl md:text-6xl font-extrabold mb-2">
+                    <span x-text="satisfactionRate > 0 ? satisfactionRate.toFixed(1) : '0.0'"></span>%
+                </h3>
                 <p class="text-xl text-blue-50">Satisfaction Rate</p>
             </div>
         </div>
