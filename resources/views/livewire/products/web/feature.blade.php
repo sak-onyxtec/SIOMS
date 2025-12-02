@@ -23,7 +23,7 @@
                         {{ optional($product->category)->name ?? 'Uncategorized' }}
                     </p>
                     @if (isset($product->short_description))
-                        <p class="text-gray-600 text-sm mb-2 line-clamp-2">
+                        <p class="text-gray-600 truncate text-sm mb-2 line-clamp-2">
                             {{ Str::limit($product->short_description, 80) }}
                         </p>
                     @endif
