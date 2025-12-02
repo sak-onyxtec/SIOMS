@@ -53,9 +53,9 @@
                     Product Name <span class="text-red-500">*</span>
                 </label>
                 <input type="text" 
-                    wire:model="name" 
+                    wire:model.live.debounce.300ms="name" 
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('name') border-red-500 @enderror"
-                    placeholder="Enter product name">
+                    placeholder="Enter product name" maxlength="25">
                 @error('name') 
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
                 @enderror
@@ -68,7 +68,7 @@
                     <span class="text-xs text-gray 500 ml-1">(Shown on product cards and listings)</span>
                 </label>
                 <textarea
-                    wire:model.defer="short_description"
+                    wire:model.live.debounce.300ms="short_description"
                     rows="3"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('short_description') border-red-500 @enderror"
                     placeholder="Write a brief summary of the product (1–2 sentences)..."></textarea>
@@ -83,9 +83,9 @@
                     SKU <span class="text-red-500">*</span>
                 </label>
                 <input type="text" 
-                    wire:model="sku" 
+                    wire:model.live.debounce.300ms="sku" 
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('sku') border-red-500 @enderror"
-                    placeholder="Enter SKU">
+                    placeholder="Enter SKU" maxlength="25">
                 @error('sku') 
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
                 @enderror
@@ -96,7 +96,7 @@
                 <label class="block text-sm font-semibold text-gray-700 mb-2">
                     Category
                 </label>
-                <select wire:model="category_id" 
+                <select wire:model.live="category_id" 
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('category_id') border-red-500 @enderror">
                     <option value="">Select Category</option>
                     @foreach (\App\Models\Category::query()->orderBy('name')->get() as $cat)
@@ -115,10 +115,12 @@
                         Quantity <span class="text-red-500">*</span>
                     </label>
                     <input type="number" 
-                        wire:model="quantity" 
+                        wire:model.live.debounce.300ms="quantity" 
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('quantity') border-red-500 @enderror"
                         placeholder="0"
-                        min="0">
+                        min="0"
+                        max="999999"
+                        maxlength="6">
                     @error('quantity') 
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
                     @enderror
@@ -131,11 +133,13 @@
                     <div class="relative">
                         <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-semibold">$</span>
                         <input type="number" 
-                            wire:model="price" 
+                            wire:model.live.debounce.300ms="price" 
                             step="0.01"
                             class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('price') border-red-500 @enderror"
                             placeholder="0.00"
-                            min="0">
+                            min="0"
+                            max="99999999"
+                            maxlength="8">
                     </div>
                     @error('price') 
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
@@ -150,7 +154,7 @@
                     <span class="text-xs text-gray 500 ml-1">(Shown on product cards and listings)</span>
                 </label>
                 <textarea
-                    wire:model.defer="description"
+                    wire:model.live.debounce.300ms="description"
                     rows="3"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('description') border-red-500 @enderror"
                     placeholder="Write a brief summary of the product (1–2 sentences)..."></textarea>

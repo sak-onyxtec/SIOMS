@@ -6,7 +6,9 @@
 
         <!-- About -->
         <div>
-            <h3 class="text-xl font-bold text-white mb-4">MyApp</h3>
+            <div class="mb-4">
+                <img src="{{ asset('images/sioms-logo-horizontal-white.svg') }}" alt="SIOMS" class="h-8 w-auto">
+            </div>
             <p class="text-gray-400">
                 A modern inventory and order management system designed for small & medium businesses.
             </p>
@@ -18,9 +20,6 @@
             <ul class="space-y-2">
                 <li><a href="{{route('home.web')}}" class="hover:text-white">Home</a></li>
                 <li><a href="{{route('products.web')}}" class="hover:text-white">Products</a></li>
-                @auth
-                    <li><a href="{{route('orders.web.listing')}}" class="hover:text-white">Orders</a></li>
-                @endauth
                 <li><a href="{{route('contact.web')}}" class="hover:text-white">Contact</a></li>
             </ul>
         </div>

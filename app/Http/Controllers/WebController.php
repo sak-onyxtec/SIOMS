@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\ContactMessage;
+use App\Mail\ContactThankYouMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
@@ -59,5 +62,41 @@ class WebController extends Controller
     public function orderDetail($id)
     {
         return view('web.orders.detail', ['id' => $id]);
+    }
+
+    public function submitContact(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'subject' => ['required', 'string', 'max:255'],
+            'order_id' => ['nullable', 'string', 'max:255'],
+            'message' => ['required', 'string'],
+        ]);
+
+        $contactMessage = ContactMessage::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'subject' => $validated['subject'],
+            'order_id' => $validated['order_id'] ?? null,
+            'message' => $validated['message'],
+        ]);
+
+        try {
+            Mail::to($contactMessage->email)->send(new ContactThankYouMail($contactMessage));
+        } catch (\Throwable $e) {
+            logger()->error('Failed to send contact thank you email', [
+                'contact_message_id' => $contactMessage->id ?? null,
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Thank you for contacting us! We will get back to you shortly.',
+            ]);
+        }
+
+        return back()->with('success', 'Thank you for contacting us! We will get back to you shortly.');
     }
 }

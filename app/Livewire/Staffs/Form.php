@@ -31,8 +31,8 @@ class Form extends Component
     public function save()
     {
         $rules = [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email' . ($this->staff_id ? ',' . $this->staff_id : ''),
+            'name' => 'required|string|max:25',
+            'email' => 'required|email|max:100|unique:users,email' . ($this->staff_id ? ',' . $this->staff_id : ''),
             'profile_image' => 'nullable|image|max:2048',
         ];
 

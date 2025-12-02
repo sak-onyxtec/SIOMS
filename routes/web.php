@@ -6,6 +6,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,7 @@ Route::get('/cart', [WebController::class, 'cart'])->name('cart.web');
 Route::get('/login',[WebController::class,'login'])->name('login.web');
 Route::get('/register',[WebController::class,'register'])->name('register.web');
 Route::view('/contact', 'web.pages.contact')->name('contact.web');
+Route::post('/contact', [WebController::class, 'submitContact'])->name('contact.submit');
 Route::view('/faq', 'web.pages.faq')->name('faq.web');
 Route::view('/privacy', 'web.pages.privacy')->name('privacy.web');
 Route::view('/terms', 'web.pages.terms')->name('terms.web');
@@ -49,6 +51,11 @@ Route::group(['middleware' => ['auth:web']], function () {
         Route::get('/edit/{id}', [StaffController::class, 'updateStaff'])->name('staff.edit');
         Route::post('/edit/{id}', [StaffController::class, 'updateStaff'])->name('staff.edit');
         Route::delete('/destroy', [StaffController::class, 'deleteStaff'])->name('staff.destroy');
+    });
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
     });
     // Customer management (list + view, no create)
     Route::get('/customers', function () {

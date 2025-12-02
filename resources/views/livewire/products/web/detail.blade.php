@@ -33,6 +33,26 @@
 
 <div class="container mx-auto px-6 py-10">
 
+    {{-- Breadcrumb --}}
+    <nav class="text-sm text-gray-500 mb-6 scroll-fade-in" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2 flex-wrap">
+            <li>
+                <a href="{{ route('home.web') }}" class="hover:text-blue-600 flex items-center gap-1">
+                    <i class="fa fa-home text-xs"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>/</li>
+            <li>
+                <a href="{{ route('products.web') }}" class="hover:text-blue-600">Products</a>
+            </li>
+            <li>/</li>
+            <li class="font-semibold text-gray-800 truncate max-w-xs md:max-w-md" title="{{ $product->name }}">
+                {{ $product->name }}
+            </li>
+        </ol>
+    </nav>
+
     <div class="flex flex-col lg:flex-row gap-10">
 
         {{-- Product Images / Gallery --}}
@@ -40,12 +60,12 @@
 
             {{-- Main image with hover zoom + click to open modal --}}
             <div
-                class="rounded-lg shadow-lg overflow-hidden group cursor-zoom-in"
+                class="rounded-lg shadow-lg overflow-hidden group cursor-zoom-in bg-gray-100 h-80 flex items-center justify-center"
                 @click="zoomOpen = true">
                 <img
                     :src="activeImage"
                     alt="{{ $product->name }}"
-                    class="w-full h-full object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-110">
+                    class="w-full h-full object-contain rounded-lg transform transition-transform duration-300 group-hover:scale-105">
             </div>
 
             {{-- Thumbnails (main image + additional images) --}}
@@ -77,28 +97,53 @@
         </div>
 
         {{-- Product Info --}}
-        <div class="w-full lg:w-1/2 flex flex-col gap-4">
+        <div class="w-full lg:w-1/2 flex flex-col gap-5">
 
-            {{-- Title & Category --}}
-            <h1 class="text-4xl font-bold">{{ $product->name }}</h1>
-            <p class="text-gray-500">{{ $product->category->name ?? 'Uncategorized' }}</p>
+            {{-- Title & Meta --}}
+            <div>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-1">{{ $product->name }}</h1>
+                <div class="flex flex-wrap items-center gap-2 text-sm text-gray-500">
+                    @if ($product->category)
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700">
+                            <i class="fa fa-tag mr-1 text-xs"></i>
+                            {{ $product->category->name }}
+                        </span>
+                    @else
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-600">
+                            <i class="fa fa-tag mr-1 text-xs"></i>
+                            Uncategorized
+                        </span>
+                    @endif
+                    @if (!empty($product->sku))
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-600">
+                            <i class="fa fa-barcode mr-1 text-xs"></i>
+                            SKU: {{ $product->sku }}
+                        </span>
+                    @endif
+                </div>
+            </div>
 
             {{-- Price & Stock --}}
-            <div class="flex items-center gap-4 mt-2">
+            <div class="flex items-center flex-wrap gap-4">
                 <p class="text-blue-600 font-bold text-3xl">${{ number_format($product->price, 2) }}</p>
                 <span
                     class="px-3 py-1 text-sm rounded-full {{ $product->quantity > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                     {{ $product->quantity > 0 ? 'In Stock' : 'Out of Stock' }}
                 </span>
+                <span class="text-xs text-gray-400">
+                    {{ $product->quantity > 0 ? $product->quantity . ' items available' : 'Currently unavailable' }}
+                </span>
             </div>
 
             {{-- Short Description --}}
             @if ($product->short_description)
-                <p class="text-gray-700 mt-2">{{ $product->short_description }}</p>
+                <p class="text-gray-700 leading-relaxed break-words">
+                    {{ $product->short_description }}
+                </p>
             @endif
 
             {{-- Quantity Selector --}}
-            <div class="flex items-center gap-3 mt-4">
+            <div class="flex items-center gap-3 mt-2">
                 <span class="text-sm font-medium text-gray-700">Quantity</span>
 
                 <button
@@ -134,7 +179,7 @@
                 <p class="mt-2 text-green-600 font-medium">{{ session('message') }}</p>
             @endif
 
-            {{-- Tabs: Description & Images --}}
+            {{-- Tabs: Description --}}
             <div class="mt-8">
                 <ul class="flex border-b">
                     <li class="mr-6">
@@ -148,7 +193,8 @@
 
                 <div class="mt-4">
                     {{-- Description tab --}}
-                    <div x-show="tab === 'description'" x-cloak class="text-gray-700 leading-relaxed">
+                    <div x-show="tab === 'description'" x-cloak
+                         class="text-gray-700 leading-relaxed break-words max-h-96 overflow-y-auto pr-1">
                         {!! $product->description !!}
                     </div>
 
@@ -169,7 +215,7 @@
                         <img src="{{ $rel->product_image }}"
                             alt="{{ $rel->name }}" class="h-40 w-full object-cover">
                         <div class="p-3">
-                            <h3 class="text-sm font-semibold">{{ $rel->name }}</h3>
+                            <h3 class="text-sm font-semibold truncate" title="{{ $rel->name }}">{{ $rel->name }}</h3>
                             <p class="text-blue-600 font-bold">${{ number_format($rel->price, 2) }}</p>
                         </div>
                     </a>

@@ -100,11 +100,18 @@
                                             <i class="fas fa-image text-gray-400"></i>
                                         </div>
                                     @endif
-                                    <div class="font-semibold text-gray-800">{{ $p->name }}</div>
+                                    <div class="font-semibold text-gray-800 max-w-xs">
+                                        <span class="block truncate" title="{{ $p->name }}">
+                                            {{ $p->name }}
+                                        </span>
+                                    </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 py-1 text-xs font-semibold rounded bg-gray-200 text-gray-800">{{ $p->sku }}</span>
+                                <span class="px-2 py-1 text-xs font-semibold rounded bg-gray-200 text-gray-800 max-w-[8rem] inline-block truncate"
+                                      title="{{ $p->sku }}">
+                                    {{ $p->sku }}
+                                </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="text-sm text-gray-600">{{ optional($p->category)->name ?? '-' }}</span>

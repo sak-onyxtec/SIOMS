@@ -56,10 +56,10 @@
         </div>
     </div>
     <!-- Right Side (Image/Color) -->
-    <div class="hidden lg:flex w-1/2 bg-blue-600 items-center justify-center relative">
-        <img src="{{ asset('storage/uploads/branding/register-hero.jpg') }}" alt="Register Image"
-            class="object-cover w-full h-full opacity-80">
-        <div class="absolute inset-0 bg-blue-700 opacity-50"></div>
+    <div class="hidden lg:flex w-1/2 bg-emerald-600 items-center justify-center relative">
+        <img src="{{ asset('images/auth-register-hero.svg') }}" alt="Register Image"
+            class="object-cover w-full h-full opacity-90">
+        <div class="absolute inset-0 bg-emerald-700 opacity-40"></div>
         <div class="absolute text-white text-center px-6">
             <h1 class="text-4xl font-extrabold mb-2 tracking-tight">SIOMS</h1>
             <p class="text-lg">Join today to enjoy a seamless shopping experience.</p>

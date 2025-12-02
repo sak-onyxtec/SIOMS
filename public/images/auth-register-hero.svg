@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="SIOMS register illustration">
+  <defs>
+    <linearGradient id="auth-register-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="600" fill="url(#auth-register-bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="90" cy="100" r="70" fill="#ecfeff" fill-opacity="0.06"/>
+  <circle cx="710" cy="520" r="90" fill="#f0fdfa" fill-opacity="0.09"/>
+
+  <!-- Registration card -->
+  <g transform="translate(210,130)">
+    <rect x="0" y="0" width="380" height="340" rx="26" fill="#ecfeff" fill-opacity="0.96"/>
+    <rect x="0" y="0" width="380" height="90" rx="26" fill="#0f172a" fill-opacity="0.95"/>
+
+    <text x="32" y="42" font-family="system-ui, sans-serif" font-size="24" font-weight="700" fill="#ecfeff">
+      Create your SIOMS account
+    </text>
+    <text x="32" y="64" font-family="system-ui, sans-serif" font-size="13" fill="#9ca3af">
+      Manage orders and inventory with ease.
+    </text>
+
+    <!-- Name field -->
+    <rect x="32" y="110" width="316" height="44" rx="10" fill="#ffffff" stroke="#d1fae5"/>
+    <circle cx="50" cy="132" r="8" fill="#14b8a6"/>
+    <text x="72" y="136" font-family="system-ui, sans-serif" font-size="13" fill="#9ca3af">
+      Full name
+    </text>
+
+    <!-- Email field -->
+    <rect x="32" y="166" width="316" height="44" rx="10" fill="#ffffff" stroke="#d1fae5"/>
+    <circle cx="50" cy="188" r="8" fill="#0ea5e9"/>
+    <text x="72" y="192" font-family="system-ui, sans-serif" font-size="13" fill="#9ca3af">
+      you@example.com
+    </text>
+
+    <!-- Password field -->
+    <rect x="32" y="222" width="316" height="44" rx="10" fill="#ffffff" stroke="#d1fae5"/>
+    <rect x="50" y="240" width="60" height="4" rx="2" fill="#9ca3af"/>
+    <rect x="118" y="240" width="34" height="4" rx="2" fill="#d1d5db"/>
+    <text x="72" y="252" font-family="system-ui, sans-serif" font-size="11" fill="#9ca3af">
+      Strong password
+    </text>
+
+    <!-- Register button -->
+    <rect x="32" y="282" width="316" height="48" rx="999" fill="#0f766e"/>
+    <text x="190" y="312" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#ecfeff">
+      Sign up
+    </text>
+  </g>
+
+  <!-- Right side: people + boxes illustration -->
+  <g transform="translate(540,190)">
+    <!-- shelves -->
+    <rect x="0" y="60" width="200" height="120" rx="18" fill="#022c22" fill-opacity="0.45"/>
+    <rect x="12" y="70" width="176" height="96" rx="12" fill="#042f2e" fill-opacity="0.9" stroke="#34d399" stroke-opacity="0.3"/>
+    <line x1="24" y1="102" x2="176" y2="102" stroke="#064e3b" stroke-width="2"/>
+    <line x1="24" y1="132" x2="176" y2="132" stroke="#064e3b" stroke-width="2"/>
+
+    <!-- boxes -->
+    <rect x="32" y="84" width="40" height="16" rx="3" fill="#fed7aa"/>
+    <rect x="80" y="84" width="40" height="16" rx="3" fill="#a5b4fc"/>
+    <rect x="128" y="84" width="28" height="16" rx="3" fill="#bbf7d0"/>
+    <rect x="32" y="114" width="34" height="16" rx="3" fill="#f9a8d4"/>
+    <rect x="74" y="114" width="34" height="16" rx="3" fill="#7dd3fc"/>
+    <rect x="116" y="114" width="40" height="16" rx="3" fill="#facc15"/>
+
+    <!-- small character with clipboard -->
+    <g transform="translate(-10,40)">
+      <circle cx="26" cy="26" r="8" fill="#fef9c3"/>
+      <rect x="18" y="34" width="16" height="20" rx="6" fill="#0f766e"/>
+      <rect x="34" y="36" width="14" height="18" rx="3" fill="#ecfeff" stroke="#6ee7b7"/>
+      <line x1="37" y1="42" x2="45" y2="42" stroke="#6ee7b7" stroke-width="1.5"/>
+      <line x1="37" y1="47" x2="45" y2="47" stroke="#6ee7b7" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>
+
+
