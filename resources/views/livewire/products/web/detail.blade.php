@@ -10,17 +10,16 @@
     }
 @endphp
 
-<div class="container mx-auto px-6 py-10"
-     x-data="{
+<div x-data="{
         tab: 'description',
         zoomOpen: false,
         images: @js($lightboxImages),
         currentIndex: 0,
         get activeImage() { return this.images[this.currentIndex] || '' },
         get zoomSrc() { return this.images[this.currentIndex] || '' },
+        // Change active image only (no lightbox)
         openAt(index) {
             this.currentIndex = index;
-            this.zoomOpen = true;
         },
         next() {
             if (!this.images.length) return;
@@ -31,6 +30,8 @@
             this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
         }
      }">
+
+<div class="container mx-auto px-6 py-10">
 
     <div class="flex flex-col lg:flex-row gap-10">
 
@@ -177,16 +178,19 @@
         </div>
     @endif
 
-    {{-- Zoom / Lightbox Modal --}}
+</div>
+
+{{-- Zoom / Lightbox Modal - Teleported to body for full-page overlay --}}
+<template x-teleport="body">
     <div
         x-show="zoomOpen"
         x-cloak
-        class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+        class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
         @keydown.escape.window="zoomOpen = false"
         @click.self="zoomOpen = false">
         <div class="relative max-w-5xl w-full px-4">
             <button
-                class="absolute -top-3 -right-3 bg-white text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-gray-100"
+                class="absolute -top-3 -right-3 bg-white text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-gray-100 z-10"
                 @click="zoomOpen = false">
                 ✕
             </button>
@@ -207,5 +211,6 @@
             </div>
         </div>
     </div>
+</template>
 
 </div>
