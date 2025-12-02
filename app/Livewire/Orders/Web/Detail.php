@@ -30,3 +30,4 @@ class Detail extends Component
 }
 
 
+

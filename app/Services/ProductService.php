@@ -26,6 +26,11 @@ class ProductService
             'price',
         ]);
         
+        // Map 'category' to 'category_id' if present (for API compatibility)
+        if ($request->has('category') && !$request->has('category_id')) {
+            $data['category_id'] = $request->input('category');
+        }
+        
         // Generate slug if not provided
         if (empty($data['slug']) && !empty($data['name'])) {
             $data['slug'] = \Illuminate\Support\Str::slug($data['name']);
@@ -76,6 +81,11 @@ class ProductService
             'quantity',
             'price',
         ]);
+        
+        // Map 'category' to 'category_id' if present (for API compatibility)
+        if ($request->has('category') && !$request->has('category_id')) {
+            $data['category_id'] = $request->input('category');
+        }
         
         // Handle legacy single image - check if it's already uploaded (string) or needs upload (file)
         if ($request->has('product_image')) {

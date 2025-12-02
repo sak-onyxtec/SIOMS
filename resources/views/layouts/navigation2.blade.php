@@ -39,14 +39,16 @@
                     <span class="ml-2">Staffs</span>
                 </a>
 
+                @endcan
+                @can('manage-customers')
                 <a href="{{ route('customers.index') }}"
                    class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline
                           {{ request()->routeIs('customers.index') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
                     <i class="fa fa-user w-5"></i>
                     <span class="ml-2">Customers</span>
                 </a>
-            @endcan
 
+                @endcan
             @can('manage-permissions')
                 <a href="{{ route('roles.index') }}"
                    class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline

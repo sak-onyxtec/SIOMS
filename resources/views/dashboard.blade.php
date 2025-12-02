@@ -28,6 +28,7 @@
             </div>
         </div>
 
+        @can('is-admin')
         {{-- Summary Cards --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
                         <a href="{{ route('product.index') }}" class="group no-underline">
@@ -221,6 +222,7 @@
                 <canvas id="inventoryMovementChart"></canvas>
             </div>
         </div>
+        @endcan
 
         @push('scripts')
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
