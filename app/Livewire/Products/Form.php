@@ -19,6 +19,21 @@ class Form extends Component
     public $existing_images = [];
     public $removed_images = [];
 
+    protected function rules(): array
+    {
+        return [
+            'name' => 'required|string|max:25',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
+            'sku' => 'required|max:25|unique:products,sku,' . $this->product_id,
+            'category_id' => 'nullable|exists:categories,id',
+            'quantity' => 'required|integer|min:0|max:999999',
+            'price' => 'required|numeric|min:0|max:99999999',
+            'product_image' => 'nullable|image|max:2048',
+            'product_images.*' => 'nullable|image|max:2048',
+        ];
+    }
+
     public function mount($id = null)
     {
         if ($id) {
@@ -43,6 +58,14 @@ class Form extends Component
         }
     }
 
+    /**
+     * Live-validate fields as the user types/changes them.
+     */
+    public function updated($propertyName): void
+    {
+        $this->validateOnly($propertyName, $this->rules());
+    }
+
     public function removeNewImage($index)
     {
         unset($this->product_images[$index]);
@@ -60,17 +83,7 @@ class Form extends Component
 
     public function save()
     {
-        $validated = $this->validate([
-            'name' => 'required',
-            'short_description' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'sku' => 'required|unique:products,sku,' . $this->product_id,
-            'category_id' => 'nullable|exists:categories,id',
-            'quantity' => 'required|numeric',
-            'price' => 'required|numeric',
-            'product_image' => 'nullable|image|max:2048', // Legacy single image
-            'product_images.*' => 'nullable|image|max:2048',
-        ]);
+        $validated = $this->validate($this->rules());
 
         // Upload legacy single image if provided using FileManagerTrait
         $legacyImagePath = null;

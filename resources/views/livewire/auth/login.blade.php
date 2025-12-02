@@ -1,8 +1,8 @@
 <div class="min-h-screen flex">
     <!-- Left Side (Brand + Illustration) -->
     <div class="hidden lg:flex w-1/2 bg-blue-600 items-center justify-center relative">
-        <img src="{{ asset('storage/uploads/branding/login-hero.jpg') }}"
-             alt="Login Illustration" class="object-cover w-full h-full opacity-80">
+        <img src="{{ asset('images/auth-login-hero.svg') }}"
+             alt="Login Illustration" class="object-cover w-full h-full opacity-90">
         <div class="absolute inset-0 bg-blue-700 opacity-50"></div>
         <div class="absolute text-white text-center px-6">
             <h1 class="text-4xl font-extrabold mb-2 tracking-tight">SIOMS</h1>

@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <h3 class="text-green-100 text-sm font-semibold mb-1">Total Stock Value</h3>
-                            <p class="text-3xl font-bold">${{ number_format($totalStockValue, 2) }}</p>
+                            <p class="text-3xl truncate font-bold" title="${{ number_format($totalStockValue, 2) }}">${{ number_format($totalStockValue, 2) }}</p>
                         </div>
 
                         <a href="{{ route('product.index', ['lowStock' => 1]) }}" class="group no-underline">
@@ -131,12 +131,12 @@
                                     <i class="fas fa-image text-gray-500 text-sm"></i>
                                 </div>
                             @endif
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-100">{{ $product->name }}</p>
-                                <p class="text-xs text-gray-400">
+                            <div class="flex-1 truncate">
+                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 truncate" title="{{ $product->name }}">{{ $product->name }}</p>
+                                <p class="text-xs text-gray-400 truncate">
                                     SKU: {{ $product->sku }} ·
-                                    <span class="font-medium">${{ number_format($product->price, 2) }}</span>
                                 </p>
+                                <span class="text-xs text-gray-400 font-medium">${{ number_format($product->price, 2) }}</span>
                             </div>
                             <div>
                                 <span class="px-2 py-1 text-xs font-semibold rounded-full

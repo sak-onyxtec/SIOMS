@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="SIOMS login illustration">
+  <defs>
+    <linearGradient id="auth-login-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="600" fill="url(#auth-login-bg)"/>
+
+  <!-- subtle circles -->
+  <circle cx="680" cy="80" r="80" fill="#ffffff" fill-opacity="0.05"/>
+  <circle cx="120" cy="500" r="90" fill="#0ea5e9" fill-opacity="0.08"/>
+
+  <!-- card / login panel -->
+  <g transform="translate(210,140)">
+    <rect x="0" y="0" width="380" height="320" rx="24" fill="#f9fafb" fill-opacity="0.95"/>
+    <rect x="0" y="0" width="380" height="80" rx="24" fill="#111827" fill-opacity="0.95"/>
+
+    <text x="32" y="50" font-family="system-ui, sans-serif" font-size="24" font-weight="700" fill="#f9fafb">
+      Sign in to SIOMS
+    </text>
+
+    <!-- email field -->
+    <rect x="32" y="110" width="316" height="46" rx="10" fill="#ffffff" stroke="#e5e7eb"/>
+    <circle cx="54" cy="133" r="8" fill="#3b82f6"/>
+    <text x="74" y="137" font-family="system-ui, sans-serif" font-size="13" fill="#9ca3af">
+      you@example.com
+    </text>
+
+    <!-- password field -->
+    <rect x="32" y="172" width="316" height="46" rx="10" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="50" y="190" width="60" height="4" rx="2" fill="#9ca3af"/>
+    <rect x="118" y="190" width="34" height="4" rx="2" fill="#d1d5db"/>
+    <text x="74" y="214" font-family="system-ui, sans-serif" font-size="11" fill="#9ca3af">
+      • • • • • • • •
+    </text>
+
+    <!-- primary button -->
+    <rect x="32" y="242" width="316" height="48" rx="999" fill="#2563eb"/>
+    <text x="190" y="272" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#f9fafb">
+      Login
+    </text>
+  </g>
+
+  <!-- right side warehouse / inventory motif -->
+  <g transform="translate(520,200)">
+    <rect x="0" y="40" width="200" height="120" rx="18" fill="#0f172a" fill-opacity="0.35"/>
+    <rect x="16" y="52" width="168" height="96" rx="12" fill="#0b1120" fill-opacity="0.8" stroke="#38bdf8" stroke-opacity="0.3"/>
+
+    <!-- shelves -->
+    <line x1="28" y1="84" x2="172" y2="84" stroke="#1e293b" stroke-width="2"/>
+    <line x1="28" y1="114" x2="172" y2="114" stroke="#1e293b" stroke-width="2"/>
+
+    <!-- boxes -->
+    <rect x="38" y="66" width="38" height="16" rx="3" fill="#f97316"/>
+    <rect x="86" y="66" width="38" height="16" rx="3" fill="#eab308"/>
+    <rect x="134" y="66" width="26" height="16" rx="3" fill="#22c55e"/>
+
+    <rect x="38" y="96" width="32" height="16" rx="3" fill="#38bdf8"/>
+    <rect x="78" y="96" width="32" height="16" rx="3" fill="#a855f7"/>
+    <rect x="118" y="96" width="42" height="16" rx="3" fill="#f97316"/>
+
+    <!-- mini chart -->
+    <g transform="translate(40,122)">
+      <polyline points="0,22 20,14 36,18 52,8 68,12" fill="none" stroke="#38bdf8" stroke-width="2"/>
+      <circle cx="0" cy="22" r="2" fill="#38bdf8"/>
+      <circle cx="20" cy="14" r="2" fill="#38bdf8"/>
+      <circle cx="36" cy="18" r="2" fill="#38bdf8"/>
+      <circle cx="52" cy="8" r="2" fill="#38bdf8"/>
+      <circle cx="68" cy="12" r="2" fill="#38bdf8"/>
+    </g>
+  </g>
+</svg>
+
+

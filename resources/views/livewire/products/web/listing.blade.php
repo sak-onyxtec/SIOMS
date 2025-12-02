@@ -2,7 +2,23 @@
 
     {{-- Sidebar Filters --}}
     <aside class="w-full lg:w-1/4 bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-bold mb-4">Filters</h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold">Filters</h2>
+
+            {{-- View Mode Toggle (moved here) --}}
+            <div class="inline-flex rounded-lg overflow-hidden border border-gray-200">
+                <button wire:click="setViewMode('grid')"
+                    class="px-3 py-2 text-sm flex items-center justify-center gap-1 transition-all duration-300
+                        {{ $viewMode == 'grid' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white text-gray-600 hover:bg-gray-100' }}">
+                    <i class="fa fa-th-large"></i>
+                </button>
+                <button wire:click="setViewMode('list')"
+                    class="px-3 py-2 text-sm flex items-center justify-center gap-1 transition-all duration-300
+                        {{ $viewMode == 'list' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white text-gray-600 hover:bg-gray-100' }}">
+                    <i class="fa fa-list"></i>
+                </button>
+            </div>
+        </div>
 
         {{-- Search --}}
         <div class="mb-6">
@@ -58,19 +74,6 @@
 
     {{-- Products Section --}}
     <div class="w-full lg:w-3/4">
-
-        {{-- View Mode Toggle --}}
-        <div class="flex justify-end mb-4 gap-2">
-            <button wire:click="setViewMode('grid')"
-                class="px-4 py-2 rounded-lg font-semibold transition-all duration-300 {{ $viewMode == 'grid' ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-200 hover:bg-gray-300' }}">
-                Grid
-            </button>
-            <button wire:click="setViewMode('list')"
-                class="px-4 py-2 rounded-lg font-semibold transition-all duration-300 {{ $viewMode == 'list' ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-200 hover:bg-gray-300' }}">
-                List
-            </button>
-        </div>
-
         {{-- Products Grid/List --}}
         <div
             class="{{ $viewMode == 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6' : 'flex flex-col gap-4' }}">
@@ -95,12 +98,18 @@
                         <div
                             class="{{ $viewMode == 'grid' ? 'p-4 flex-1 flex flex-col justify-between' : 'flex-1 flex flex-col justify-between h-full' }}">
                             <div>
-                                <h3 class="text-lg font-semibold mb-1">{{ $product->name }}</h3>
+                                <h3 class="text-lg font-semibold truncate mb-1">{{ $product->name }}</h3>
                                 <p class="text-gray-500 text-sm mb-2">{{ $product->category->name ?? 'Uncategorized' }}</p>
-                                @if (isset($product->short_description))
-                                    <p class="text-gray-600 text-sm mb-2">
-                                        {{ Str::limit($product->short_description, 100) }}</p>
-                                @endif
+
+                                {{-- Description block with fixed height and truncation to keep cards equal height --}}
+                                <div class="mb-2" style="min-height: 3.25rem;">
+                                    @if (!empty($product->short_description))
+                                        <p class="text-gray-600 text-sm truncate" title="{{ $product->short_description }}">
+                                            {{ $product->short_description }}
+                                        </p>
+                                    @endif
+                                </div>
+
                                 <p class="text-blue-600 font-bold text-lg">${{ number_format($product->price, 2) }}</p>
                             </div>
 

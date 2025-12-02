@@ -34,6 +34,15 @@ class Index extends Component
     public $filter_product_id;
     public $filter_type;
 
+    protected function rules(): array
+    {
+        return [
+            'product_id' => 'required|exists:products,id',
+            'type'       => 'required|in:stock_in,stock_out,adjustment',
+            'quantity'   => 'required|integer|min:1|max:999999',
+        ];
+    }
+
     public function updatedFilterProductId()
     {
         $this->resetPage();
@@ -44,13 +53,14 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function updatedQuantity(): void
+    {
+        $this->validateOnly('quantity', $this->rules());
+    }
+
     public function saveTransaction()
     {
-        $this->validate([
-            'product_id' => 'required|exists:products,id',
-            'type' => 'required|in:stock_in,stock_out,adjustment',
-            'quantity' => 'required|integer|min:1',
-        ]);
+        $this->validate($this->rules());
         
         $inventoryService = app(InventoryService::class);
 

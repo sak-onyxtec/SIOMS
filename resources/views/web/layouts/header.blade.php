@@ -5,8 +5,9 @@
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
 
         <!-- Logo -->
-        <a href="{{ route('home.web') }}" class="text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent tracking-tight hover:scale-105 transition-transform duration-300">
-            SIOMS
+        <a href="{{ route('home.web') }}" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+            <img src="{{ asset('images/sioms-logo-horizontal.svg') }}" alt="SIOMS"
+                 class="h-8 w-auto">
         </a>
 
         <!-- Desktop Nav -->
@@ -17,6 +18,14 @@
             </a>
             <a href="{{ route('products.web') }}" class="relative group hover:text-blue-600 transition-colors duration-300">
                 Products
+                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a href="{{ route('contact.web') }}" class="relative group hover:text-blue-600 transition-colors duration-300">
+                Contact Us
+                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a href="{{ route('faq.web') }}" class="relative group hover:text-blue-600 transition-colors duration-300">
+                FAQ's
                 <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
             </a>
             <!-- @auth

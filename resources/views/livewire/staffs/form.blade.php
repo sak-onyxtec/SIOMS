@@ -55,7 +55,8 @@
                 <input type="text"
                        wire:model="name"
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('name') border-red-500 @enderror"
-                       placeholder="Enter staff name">
+                       placeholder="Enter staff name"
+                       maxlength="25">
                 @error('name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
             </div>
 
@@ -67,7 +68,8 @@
                 <input type="email"
                        wire:model="email"
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 @error('email') border-red-500 @enderror"
-                       placeholder="Enter email address">
+                       placeholder="Enter email address"
+                       maxlength="100">
                 @error('email') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
             </div>
 

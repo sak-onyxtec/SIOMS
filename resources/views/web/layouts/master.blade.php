@@ -7,8 +7,19 @@
 
     <title>{{ env('APP_NAME') ?? 'SIOMS' }}</title>
 
+    {{-- Favicon & App Icons --}}
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+
     {{-- Tailwind (if using CDN) --}}
     <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- Font Awesome Icons --}}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
 
     {{-- If you're using Vite --}}
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
