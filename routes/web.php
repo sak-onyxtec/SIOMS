@@ -15,8 +15,8 @@ Route::get('/', [WebController::class, 'home'])->name('home.web');
 Route::get('/products', [WebController::class, 'products'])->name('products.web');
 Route::get('/products/{slug}', [WebController::class, 'productDetail'])->name('products.detail.web');
 Route::get('/cart', [WebController::class, 'cart'])->name('cart.web');
-Route::get('/login',[WebController::class,'login'])->name('login.web');
-Route::get('/register',[WebController::class,'register'])->name('register.web');
+Route::get('/login', [WebController::class, 'login'])->name('login.web');
+Route::get('/register', [WebController::class, 'register'])->name('register.web');
 Route::view('/contact', 'web.pages.contact')->name('contact.web');
 Route::post('/contact', [WebController::class, 'submitContact'])->name('contact.submit');
 Route::view('/faq', 'web.pages.faq')->name('faq.web');
@@ -27,8 +27,11 @@ Route::view('/terms', 'web.pages.terms')->name('terms.web');
 Route::group(['middleware' => ['auth:web']], function () {
     Route::get('/orders', [WebController::class, 'orders'])->name('orders.web.listing');
     Route::get('/orders/{id}', [WebController::class, 'orderDetail'])->name('orders.web.detail');
+    Route::get('/orders/{order}/receipt', [WebController::class, 'downloadReceipt'])->name('orders.web.receipt');
     Route::get('/account/profile', [WebController::class, 'profile'])->name('web.profile');
     Route::get('/dashboard', [ProfileController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard/export-monthly-sales-pdf', [ProfileController::class, 'exportMonthlySalesPdf'])->name('dashboard.export.monthly-sales.pdf')->can('is-admin');
+    Route::get('/dashboard/export-inventory-movement-pdf', [ProfileController::class, 'exportInventoryMovementPdf'])->name('dashboard.export.inventory-movement.pdf')->can('is-admin');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -75,18 +78,23 @@ Route::group(['middleware' => ['auth:web']], function () {
     Route::group(['prefix' => 'inventory'], function () {
         Route::get('/', [ProductController::class, 'inventory'])->name('inventory.index');
     });
-        Route::group(['prefix' => 'order'], function () {
-        Route::get('/my',[OrderController::class,'myOrders'])->name('orders.my');
-        Route::get('/',[OrderController::class,'index'])->name('orders.index');
-        Route::get('/detail/{id}',[OrderController::class,'detail'])->name('orders.detail');
-        Route::get('/success', function () {
-            // Clear cart after successful payment
-            Session::forget('cart');
-
-            return view('web.orders.success');
-        })->name('orders.success');
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/my', [OrderController::class, 'myOrders'])->name('orders.my');
+        Route::get('/', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('/detail/{id}', [OrderController::class, 'detail'])->name('orders.detail');
+        Route::get('/success', [OrderController::class, 'stripeSuccess'])->name('orders.success');
     });
+
+    Route::get('/stripe/payments', function () {
+        return view('stripe.payments');
+    })->name('stripe.payments')->can('is-admin');
 });
+
+Route::get('/confirmation/{id}', function($id){
+    return view('emails.orders.confirmation', [
+        'order' => Order::find($id)
+    ]);
+})->name('orders.web.confirmation');
 
 
 require __DIR__ . '/auth.php';

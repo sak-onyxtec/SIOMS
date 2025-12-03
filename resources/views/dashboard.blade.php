@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout  wire:poll>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
@@ -8,6 +8,7 @@
     <div class="px-4 sm:px-6 lg:px-8 py-4 text-gray-900 dark:text-gray-100">
 
         {{-- Welcome Banner --}}
+        @can('is-admin')
         <div class="mb-8 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-400 rounded-2xl shadow-lg px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
                 <p class="text-xs font-semibold tracking-wide text-blue-100 uppercase mb-1">Welcome back</p>
@@ -27,10 +28,8 @@
                 </div>
             </div>
         </div>
-
-        @can('is-admin')
         {{-- Summary Cards --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
                         <a href="{{ route('product.index') }}" class="group no-underline">
                             <div class="no-underline bg-gradient-to-br from-blue-400 to-blue-500 text-white shadow-lg rounded-xl p-6 transform transition-all duration-400 hover:scale-105 hover:shadow-xl cursor-pointer">
                                 <div class="flex items-center justify-between mb-4">
@@ -109,6 +108,24 @@
                                 </div>
                                 <h3 class="text-yellow-100 text-sm font-semibold mb-1">Pending Orders</h3>
                                 <p class="text-3xl font-bold">{{ $totalPendingOrders }}</p>
+                            </div>
+                        </a>
+
+                        {{-- Stripe Earnings Card --}}
+                        <a href="{{ route('stripe.payments') }}" class="group no-underline">
+                            <div class="no-underline bg-gradient-to-br from-indigo-400 to-indigo-500 text-white shadow-lg rounded-xl p-6 transform transition-all duration-400 hover:scale-105 hover:shadow-xl cursor-pointer">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <svg class="w-5 h-5 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-indigo-100 text-sm font-semibold mb-1">Total Earnings</h3>
+                                <p class="text-3xl font-bold truncate" title="${{ number_format($totalStripeEarnings, 2) }}">${{ number_format($totalStripeEarnings, 2) }}</p>
                             </div>
                         </a>
                     </div>
@@ -202,26 +219,44 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {{-- Monthly Sales --}}
             <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-100">
-                            <h3 class="text-gray-700 font-bold text-lg mb-4 flex items-center gap-2">
-                                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                </svg>
-                                Monthly Sales
-                            </h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-gray-700 font-bold text-lg flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                    </svg>
+                                    Monthly Sales
+                                </h3>
+                                <a href="{{ route('dashboard.export.monthly-sales.pdf') }}"
+                                   class="inline-flex items-center px-3 py-1.5 border border-blue-500 text-xs font-semibold rounded-lg text-blue-600 hover:text-white hover:bg-blue-500 transition-colors no-underline">
+                                    Export Sales PDF
+                                </a>
+                            </div>
                             <canvas id="monthlySalesChart"></canvas>
                         </div>
 
                         {{-- Inventory Movement --}}
             <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-100">
-                <h3 class="text-gray-700 font-bold text-lg mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                    </svg>
-                    Inventory Movement
-                </h3>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-700 font-bold text-lg flex items-center gap-2">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        Inventory Movement
+                    </h3>
+                    <a href="{{ route('dashboard.export.inventory-movement.pdf') }}"
+                       class="inline-flex items-center px-3 py-1.5 border border-green-500 text-xs font-semibold rounded-lg text-green-600 hover:text-white hover:bg-green-500 transition-colors no-underline">
+                        Export Inventory PDF
+                    </a>
+                </div>
                 <canvas id="inventoryMovementChart"></canvas>
             </div>
         </div>
+        @endcan
+        @can('is-staff')
+            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Staff Dashboard</h3>
+                <p class="text-gray-600 dark:text-gray-300">Welcome back, {{ auth()->user()->name ?? 'Staff' }}.</p>
+            </div>
         @endcan
 
         @push('scripts')

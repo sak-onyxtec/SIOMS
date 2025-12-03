@@ -15,6 +15,10 @@
                 <table width="600" cellpadding="0" cellspacing="0" role="presentation" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 10px 25px rgba(15,23,42,0.08);">
                     <tr>
                         <td style="background:linear-gradient(135deg,#2563eb,#4f46e5);padding:24px 32px;color:#ffffff;">
+                            <div style="text-align:center;margin-bottom:8px;">
+                                <img src="{{ asset('images/sioms-logo-horizontal.svg') }}" alt="{{ config('app.name') }}"
+                                     style="max-width:200px;height:auto;">
+                            </div>
                             <h1 style="margin:0;font-size:24px;font-weight:700;">
                                 Thank you for contacting {{ config('app.name') }}
                             </h1>

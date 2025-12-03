@@ -171,9 +171,17 @@ class Web extends Component
             'line_items' => $lineItems,
             'mode' => 'payment',
             'customer_email' => Auth::user()->email ?? null,
-            'success_url' => route('orders.success'),
+            'success_url' => route('orders.success') . '?session_id={CHECKOUT_SESSION_ID}&order_id=' . $order->id,
             'cancel_url' => route('cart.web'),
+            'metadata' => [
+                'order_id' => $order->id,
+            ],
         ]);
+
+        // Save Stripe session ID to order
+        $order->payment_method = 'stripe';
+        $order->stripe_session_id = $checkoutSession->id;
+        $order->save();
 
         return redirect($checkoutSession->url);
     }
