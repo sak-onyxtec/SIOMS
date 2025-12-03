@@ -21,68 +21,68 @@
     </div>
 
     {{-- Search --}}
-    <div class="mb-4">
+    <!-- <div class="mb-4">
         <input type="text" wire:model.live.debounce.300ms="search" 
             placeholder="Search by name, SKU, or category..."
             class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-300 shadow-sm hover:shadow-md">
-    </div>
+    </div> -->
 
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gradient-to-r from-blue-50 to-blue-100">
+    <div class="bg-white">
+        <div class="">
+            <table class="w-full js-datatable">
+                <thead class="">
                     <tr>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             <button wire:click="sortByColumn('name')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
                                 Product
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <svg class="w-3 h-3 {{ $sortBy === 'name' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                     <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'name' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
-                                </div>
+                                </div> -->
                             </button>
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             <button wire:click="sortByColumn('sku')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
                                 SKU
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <svg class="w-3 h-3 {{ $sortBy === 'sku' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                     <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'sku' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
-                                </div>
+                                </div> -->
                             </button>
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Category</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             <button wire:click="sortByColumn('quantity')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
                                 Quantity
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <svg class="w-3 h-3 {{ $sortBy === 'quantity' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                     <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'quantity' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
-                                </div>
+                                </div> -->
                             </button>
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             <button wire:click="sortByColumn('price')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
                                 Price
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <svg class="w-3 h-3 {{ $sortBy === 'price' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                     <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'price' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
-                                </div>
+                                </div> -->
                             </button>
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center w-32">Actions</th>
@@ -162,11 +162,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
-    {{-- Pagination --}}
-    <div class="mt-6">
-        {{ $products->links() }}
     </div>
 
 </div>

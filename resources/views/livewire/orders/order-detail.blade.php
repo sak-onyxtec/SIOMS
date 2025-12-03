@@ -122,7 +122,7 @@
             <div class="px-6 py-4 border-b border-gray-100">
                 <h3 class="text-lg font-semibold text-gray-800">Items</h3>
             </div>
-            <div class="overflow-x-auto">
+            <div class="">
                 <table class="w-full">
                     <thead class="bg-gray-50">
                         <tr>

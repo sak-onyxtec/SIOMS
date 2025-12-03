@@ -111,7 +111,8 @@ class Index extends Component
             }
 
 
-            // $this->emit('statusUpdated', "Order #{$order->uid} status updated to {$newStatus}");
+            // Notify frontend (Livewire v3 event) to refresh any JS plugins like DataTables
+            $this->dispatch('orders-table-refresh');
             }
         } catch (\Exception $e) {
             Log::error("Error changing order status: " . $e->getMessage());
@@ -124,18 +125,18 @@ class Index extends Component
     public function render()
     {
         $orders = Order::when(
-            $this->search,
-            fn($q) =>
-            $q->where('uid', 'like', "%{$this->search}%")
-                ->orWhere('status', 'like', "%{$this->search}%")
-        )
+                $this->search,
+                fn($q) =>
+                $q->where('uid', 'like', "%{$this->search}%")
+                    ->orWhere('status', 'like', "%{$this->search}%")
+            )
             ->when(
                 $this->status,
                 fn($q) =>
                 $q->where('status', $this->status)
             )
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->get();
 
         $statuses = $this->statuses;
         return view('livewire.orders.index', [

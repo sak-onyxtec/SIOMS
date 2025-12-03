@@ -69,7 +69,7 @@
             </div>
 
             {{-- Thumbnails (main image + additional images) --}}
-            <div class="flex gap-2 mt-4 overflow-x-auto">
+            <div class="flex gap-2 mt-4 ">
                 {{-- Main image thumbnail --}}
                 <img
                     src="{{ $product->product_image }}"

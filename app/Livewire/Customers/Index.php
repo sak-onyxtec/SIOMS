@@ -63,7 +63,7 @@ class Index extends Component
                 });
             })
             ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate(10);
+            ->get();
 
         return view('livewire.customers.index', [
             'customers' => $customers,

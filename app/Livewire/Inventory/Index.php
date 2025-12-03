@@ -76,6 +76,10 @@ class Index extends Component
         $this->resetPage();
 
         session()->flash('success', 'Transaction saved successfully!');
+
+        // Let frontend know to refresh the DataTable instance
+        $this->dispatch('inventory-table-refresh');
+
     }
 
     public function sortByColumn($column)
@@ -103,7 +107,7 @@ class Index extends Component
             $query->where('type', $this->filter_type);
         }
 
-        $transactions = $query->paginate(10);
+        $transactions = $query->get();
 
         return view('livewire.inventory.index', [
             'transactions' => $transactions

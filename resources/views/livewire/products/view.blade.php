@@ -165,7 +165,7 @@
                 {{-- Inventory Transactions Tab --}}
                 <div id="transactionsContent" class="tab-content hidden">
                     @if($transactions->count())
-                        <div class="overflow-x-auto">
+                        <div class="">
                             <table class="w-full">
                                 <thead class="bg-gray-50">
                                     <tr>

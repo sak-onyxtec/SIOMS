@@ -10,7 +10,7 @@
 
     {{-- Orders Grid/Table --}}
     <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div class="overflow-x-auto">
+        <div class="">
             <table class="w-full">
                 <thead class="bg-gradient-to-r from-blue-50 to-blue-100">
                     <tr>

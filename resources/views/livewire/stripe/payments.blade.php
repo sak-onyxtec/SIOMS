@@ -2,7 +2,7 @@
     {{-- Header with Summary --}}
     <div class="mb-6">
         <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-            Payments
+            Payments Summary
         </h2>
         
         {{-- Summary Cards --}}
@@ -86,7 +86,7 @@
     </div>
 
     {{-- Filters --}}
-    <div class="mb-4 flex flex-col sm:flex-row gap-4">
+    <!-- <div class="mb-4 flex flex-col sm:flex-row gap-4">
         <div class="flex-1">
             <input
                 type="text"
@@ -110,33 +110,34 @@
                 placeholder="To Date"
                 class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none dark:bg-gray-700 dark:text-gray-200">
         </div>
-    </div>
+    </div> -->
 
     {{-- Payments Table --}}
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900 dark:to-indigo-800">
+    <div class="bg-white mt-4 p-4 rounded-lg">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">Payments Transactions</h2>
+        <div class="">
+            <table class="w-full js-datatable" id="stripe-payments-table">
+                <thead>
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                        <th>
                             Order ID
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                        <th>
                             Customer
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                        <th>
                             Amount
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                        <th>
                             Payment Intent
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                        <th>
                             Paid At
                         </th>
-                        <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                        <th>
                             Status
                         </th>
-                        <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider w-32">
+                        <th>
                             Action
                         </th>
                     </tr>
@@ -210,8 +211,5 @@
         </div>
     </div>
 
-    {{-- Pagination --}}
-    <div class="mt-4">
-        {{ $payments->links() }}
-    </div>
+    {{-- Pagination handled by DataTables --}}
 </div>
