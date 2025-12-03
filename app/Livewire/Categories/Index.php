@@ -62,7 +62,7 @@ class Index extends Component
                 });
             })
             ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate(10);
+            ->get();
 
         return view('livewire.categories.index', [
             'categories' => $categories,

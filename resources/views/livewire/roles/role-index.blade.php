@@ -41,9 +41,9 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div class="overflow-x-auto">
-            <table class="w-full">
+    <div class="bg-white">
+        <div class="">
+            <table class="w-full js-datatable">
                 <thead class="bg-gradient-to-r from-blue-50 to-blue-100">
                     <tr>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">

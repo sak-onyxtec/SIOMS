@@ -18,73 +18,81 @@
     </div>
 
     {{-- Filters --}}
-    <div class="mb-4 flex flex-col sm:flex-row gap-4">
+    <div class="mb-4 flex flex-col sm:flex-row gap-4 items-end">
         <div>
             <label class="block text-sm font-semibold text-gray-700 mb-1">Filter by Product</label>
-            <select wire:model="filter_product_id"
+            <select id="inventory-filter-product"
                     class="w-64 max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
                 <option value="">All Products</option>
                 @foreach ($products as $product)
-                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    <option value="{{ $product->name }}">{{ $product->name }}</option>
                 @endforeach
             </select>
         </div>
 
         <div>
             <label class="block text-sm font-semibold text-gray-700 mb-1">Filter by Type</label>
-            <select wire:model="filter_type"
+            <select id="inventory-filter-type"
                     class="w-64 max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
                 <option value="">All Types</option>
-                <option value="stock_in">Stock In</option>
-                <option value="stock_out">Stock Out</option>
-                <option value="adjustment">Adjustment</option>
+                <option value="Stock In">Stock In</option>
+                <option value="Stock Out">Stock Out</option>
+                <option value="Adjustment">Adjustment</option>
             </select>
         </div>
+
+        <button
+            id="inventory-clear-filters"
+            type="button"
+            class="relative inline-flex items-center px-3 py-2 text-md font-semibold text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100 rounded-lg border border-red-100 shadow-sm hidden">
+            <span class="absolute -top-1 -right-1 inline-flex h-2.5 w-2.5 rounded-full bg-red-500"></span>
+            Clear filters
+        </button>
     </div>
 
-    {{-- Transactions Table (auto-refresh) --}}
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mt-4" wire:poll>
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-50">
+    {{-- Transactions Table --}}
+    <div class="bg-white mt-4">
+        <div wire:ignore>
+            <table class="w-full js-datatable" id="inventory-table">
+                <thead>
                     <tr>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             <button wire:click="sortByColumn('id')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
                                 ID
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <svg class="w-3 h-3 {{ $sortBy === 'id' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                     <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'id' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
-                                </div>
+                                </div> -->
                             </button>
                         </th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             <button wire:click="sortByColumn('type')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
                                 Type
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <svg class="w-3 h-3 {{ $sortBy === 'type' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                     <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'type' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
-                                </div>
+                                </div> -->
                             </button>
                         </th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             <button wire:click="sortByColumn('quantity')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
                                 Quantity
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <svg class="w-3 h-3 {{ $sortBy === 'quantity' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                     <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'quantity' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
-                                </div>
+                                </div> -->
                             </button>
                         </th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">User</th>
@@ -94,12 +102,12 @@
                             <button wire:click="sortByColumn('created_at')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
                                 Date
                                 <div class="flex flex-col">
-                                    <svg class="w-3 h-3 {{ $sortBy === 'created_at' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                    <!-- <svg class="w-3 h-3 {{ $sortBy === 'created_at' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                     <svg class="w-3 h-3 -mt-1 {{ $sortBy === 'created_at' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                    </svg>
+                                    </svg> -->
                                 </div>
                             </button>
                         </th>
@@ -142,11 +150,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
-    {{-- Pagination --}}
-    <div class="mt-6">
-        {{ $transactions->links() }}
     </div>
 
     {{-- Modal for New Transaction --}}
@@ -219,3 +222,36 @@
     @endif
 
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const productFilter = $('#inventory-filter-product');
+        const typeFilter = $('#inventory-filter-type');
+        const clearBtn = $('#inventory-clear-filters');
+
+        function updateClearVisibility() {
+            if (productFilter.val() || typeFilter.val()) {
+                clearBtn.removeClass('hidden');
+            } else {
+                clearBtn.addClass('hidden');
+            }
+        }
+
+        productFilter.on('change.invFilters', updateClearVisibility);
+        typeFilter.on('change.invFilters', updateClearVisibility);
+
+        clearBtn.on('click', function () {
+            productFilter.val('');
+            typeFilter.val('');
+            productFilter.trigger('change');
+            typeFilter.trigger('change');
+            updateClearVisibility();
+        });
+
+        // Initialize visibility on first load
+        updateClearVisibility();
+    });
+
+</script>
+@endpush

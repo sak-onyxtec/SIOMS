@@ -1,4 +1,4 @@
-<div class="p-6" wire:poll>
+<div class="p-6">
     {{-- Loading Overlay --}}
     {{-- <div wire:loading wire:target="changeStatus" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
         <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
@@ -17,33 +17,35 @@
         </h2>
     </div>
 
-    {{-- Filters --}}
-    <div class="mb-4 flex flex-col sm:flex-row gap-4 justify-end">
+    {{-- Filters (status only, text search handled by DataTable) --}}
+    <div class="mb-4 flex flex-col sm:flex-row gap-4 justify-start items-end">
         <div>
-            <input
-                type="text"
-                wire:model.live.debounce.300ms="search"
-                placeholder="Search by Order ID or Status..."
-                class="w-64 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 shadow-sm hover:shadow-md">
-        </div>
-
-        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Filter by Status</label>
             <select
+                id="orders-status-filter"
                 wire:model="status"
                 class="w-56 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
                 <option value="">All Statuses</option>
                 @foreach ($statuses as $key => $label)
-                    <option value="{{ $key }}">{{ $label }}</option>
+                    <option value="{{ $label }}">{{ $label }}</option>
                 @endforeach
             </select>
         </div>
+
+        <button
+            id="orders-clear-filters"
+            type="button"
+            class="relative inline-flex items-center px-3 py-2 text-md font-semibold text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100 rounded-lg border border-red-100 shadow-sm hidden">
+            <span class="absolute -top-1 -right-1 inline-flex h-2.5 w-2.5 rounded-full bg-red-500"></span>
+            Clear filters
+        </button>
     </div>
 
     {{-- Orders Table --}}
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gradient-to-r from-blue-50 to-blue-100">
+    <div class="bg-white">
+        <div class="">
+            <table class="w-full js-datatable" id="orders-table">
+                <thead>
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Order ID
@@ -82,8 +84,8 @@
                                         default => 'bg-gray-100 text-gray-800',
                                     };
                                 @endphp
-                                <span onclick="openStatusModal({{ $order->id }}, '{{ $order->status }}')"
-                                      class="cursor-pointer px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $badgeClasses }} relative"
+                                <span
+                                      class="   px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $badgeClasses }} relative"
                                       wire:loading.attr="disabled"
                                       wire:target="changeStatus">
                                     <span wire:loading.remove wire:target="changeStatus">{{ ucfirst($order->status) }}</span>
@@ -123,11 +125,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
-    {{-- Pagination --}}
-    <div class="mt-4">
-        {{ $orders->links() }}
     </div>
 </div>
 
@@ -190,5 +187,32 @@
                 }
             });
         };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const statusFilter = document.getElementById('orders-status-filter');
+            const clearBtn = document.getElementById('orders-clear-filters');
+
+            if (!statusFilter || !clearBtn) {
+                return;
+            }
+
+            function updateClearVisibility() {
+                if (statusFilter.value) {
+                    clearBtn.classList.remove('hidden');
+                } else {
+                    clearBtn.classList.add('hidden');
+                }
+            }
+
+            statusFilter.addEventListener('change', updateClearVisibility);
+
+            clearBtn.addEventListener('click', function () {
+                statusFilter.value = '';
+                statusFilter.dispatchEvent(new Event('change'));
+                updateClearVisibility();
+            });
+
+            updateClearVisibility();
+        });
     </script>
 @endpush

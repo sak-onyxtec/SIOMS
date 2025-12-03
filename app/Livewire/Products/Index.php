@@ -69,8 +69,7 @@ class Index extends Component
                     });
             })
             ->when($this->lowStock, fn($q) => $q->where('quantity', '<=', 5))
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate(10);
+            ->orderBy($this->sortBy, $this->sortDirection)->get();
 
         return view('livewire.products.index', [
             'products' => $products

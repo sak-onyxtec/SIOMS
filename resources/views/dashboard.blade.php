@@ -140,11 +140,13 @@
                 </div>
                 <div class="divide-y divide-gray-100 dark:divide-gray-700">
                     @forelse($latestProducts as $product)
-                        <div class="px-6 py-4 flex items-center gap-4">
+                        <div class="px-6 py-3 flex items-stretch gap-4">
                             @if($product->product_image)
-                                <img src="{{ $product->product_image }}" class="w-12 h-12 rounded-md object-cover shadow-sm" alt="{{ $product->name }}">
+                                <div class="flex-shrink-0 w-24 h-24 overflow-hidden rounded-md">
+                                    <img src="{{ $product->product_image }}" class="w-full h-full object-cover" alt="{{ $product->name }}">
+                                </div>
                             @else
-                                <div class="w-12 h-12 rounded-md bg-gray-100 flex items-center justify-center">
+                                <div class="flex-shrink-0 w-24 h-24 rounded-md bg-gray-100 flex items-center justify-center">
                                     <i class="fas fa-image text-gray-500 text-sm"></i>
                                 </div>
                             @endif

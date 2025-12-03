@@ -96,7 +96,7 @@
                     </h3>
                 </div>
 
-                <div class="overflow-x-auto">
+                <div class="">
                     <table class="min-w-full text-sm">
                         <thead>
                         <tr class="bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wide">

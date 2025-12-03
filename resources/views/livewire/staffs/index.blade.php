@@ -8,17 +8,12 @@
         </a>
     </div>
 
-    {{-- Search --}}
-    <div class="mb-4">
-        <input type="text" wire:model.live.debounce.300ms="search" 
-            placeholder="Search by name or email..."
-            class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-300 shadow-sm hover:shadow-md">
-    </div>
+    {{-- Search handled by DataTable --}}
 
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gradient-to-r from-blue-50 to-blue-100">
+    <div class="bg-white">
+        <div class="">
+            <table class="w-full js-datatable">
+                <thead>
                     <tr>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             <button wire:click="sortByColumn('name')" class="flex items-center gap-1 hover:text-blue-700 transition-colors duration-200 group">
@@ -127,11 +122,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
-    {{-- Pagination --}}
-    <div class="mt-6">
-        {{ $staffs->links() }}
     </div>
 
 </div>

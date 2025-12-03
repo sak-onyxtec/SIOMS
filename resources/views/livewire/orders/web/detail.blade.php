@@ -94,7 +94,7 @@
         {{-- Order Items Card --}}
         <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-100 scroll-fade-in">
             <h2 class="text-xl font-bold text-gray-800 mb-4">Order Items</h2>
-            <div class="overflow-x-auto">
+            <div class="">
                 <table class="w-full">
                     <thead class="bg-gradient-to-r from-blue-50 to-blue-100">
                         <tr>
