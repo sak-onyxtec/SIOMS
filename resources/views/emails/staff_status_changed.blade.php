@@ -8,6 +8,10 @@
     <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb;">
         <tr>
             <td style="background: linear-gradient(to right, #2563eb, #1d4ed8); padding: 16px 24px; color: #ffffff;">
+                <div style="text-align:center;margin-bottom:8px;">
+                    <img src="{{ asset('images/sioms-logo-horizontal.svg') }}" alt="{{ config('app.name') }}"
+                         style="max-width:200px;height:auto;">
+                </div>
                 <h1 style="margin: 0; font-size: 20px;">{{ config('app.name') }} &mdash; Staff Account Status</h1>
             </td>
         </tr>

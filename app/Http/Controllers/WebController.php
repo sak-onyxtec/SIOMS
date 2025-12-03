@@ -8,6 +8,7 @@ use App\Mail\ContactThankYouMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class WebController extends Controller
 {
@@ -62,6 +63,33 @@ class WebController extends Controller
     public function orderDetail($id)
     {
         return view('web.orders.detail', ['id' => $id]);
+    }
+
+    public function downloadReceipt(Order $order)
+    {
+        $user = Auth::user();
+
+        // Ensure the authenticated user owns this order
+        if (!$user || $order->user_id !== $user->id) {
+            abort(403);
+        }
+
+        $order->loadMissing(['items.product', 'user']);
+
+        $isRefunded = !is_null($order->refunded_at);
+
+        // Choose the correct PDF view + filename based on refund status
+        $view = $isRefunded
+            ? 'emails.orders.refund-pdf'
+            : 'emails.orders.receipt-pdf';
+
+        $filename = ($isRefunded ? 'refund-receipt-' : 'receipt-') . $order->uid . '.pdf';
+
+        $pdf = Pdf::loadView($view, [
+            'order' => $order,
+        ]);
+
+        return $pdf->download($filename);
     }
 
     public function submitContact(Request $request)

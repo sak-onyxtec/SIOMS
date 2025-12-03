@@ -16,7 +16,7 @@
         <nav class="mt-4 flex-1 flex flex-col space-y-1 px-2">
             <!-- Dashboard -->
             <a href="{{ route('dashboard') }}"
-               class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline
+               class="flex items-center px-3 py-2 rounded-lg text-md font-medium no-underline
                       {{ request()->routeIs('dashboard') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
                 <i class="fa fa-home w-5"></i>
                 <span class="ml-2">Dashboard</span>
@@ -25,14 +25,14 @@
             @can('view-products')
             <!-- Products -->
             <a href="{{ route('product.index') }}"
-               class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline
-                      {{ request()->routeIs('product.index') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
+               class="flex items-center px-3 py-2 rounded-lg text-md font-medium no-underline
+                      {{ request()->routeIs('product.index') || request()->routeIs('product.create') || request()->routeIs('product.view') || request()->routeIs('product.edit') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
                 <i class="fa fa-boxes w-5"></i>
                 <span class="ml-2">Products</span>
             </a>
             <a href="{{ route('category.index') }}"
-               class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline
-                      {{ request()->routeIs('category.index') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
+               class="flex items-center px-3 py-2 rounded-lg text-md font-medium no-underline
+                      {{ request()->routeIs('category.index') || request()->routeIs('category.create') || request()->routeIs('category.edit') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
                 <i class="fa fa-boxes w-5"></i>
                 <span class="ml-2">Categories</span>
             </a>
@@ -40,8 +40,8 @@
 
             @can('manage-staffs')
                 <a href="{{ route('staff.index') }}"
-                   class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline
-                          {{ request()->routeIs('staff.index') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
+                   class="flex items-center px-3 py-2 rounded-lg text-md font-medium no-underline
+                          {{ request()->routeIs('staff.index') || request()->routeIs('staff.create') || request()->routeIs('staff.edit') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
                     <i class="fa fa-users w-5"></i>
                     <span class="ml-2">Staffs</span>
                 </a>
@@ -49,8 +49,8 @@
                 @endcan
                 @can('manage-customers')
                 <a href="{{ route('customers.index') }}"
-                   class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline
-                          {{ request()->routeIs('customers.index') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
+                   class="flex items-center px-3 py-2 rounded-lg text-md font-medium no-underline
+                          {{ request()->routeIs('customers.index') || request()->routeis('customers.view') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
                     <i class="fa fa-user w-5"></i>
                     <span class="ml-2">Customers</span>
                 </a>
@@ -58,8 +58,8 @@
                 @endcan
             @can('manage-permissions')
                 <a href="{{ route('roles.index') }}"
-                   class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline
-                          {{ request()->routeIs('roles.index') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
+                   class="flex items-center px-3 py-2 rounded-lg text-md font-medium no-underline
+                          {{ request()->routeIs('roles.index') || request()->routeIs('roles.permissions') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
                     <i class="fa fa-key w-5"></i>
                     <span class="ml-2">Roles & Permissions</span>
                 </a>
@@ -67,7 +67,7 @@
 
             @can('manage-inventory')
                 <a href="{{ route('inventory.index') }}"
-                   class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline
+                   class="flex items-center px-3 py-2 rounded-lg text-md font-medium no-underline
                           {{ request()->routeIs('inventory.index') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
                     <i class="fa fa-box w-5"></i>
                     <span class="ml-2">Inventory</span>
@@ -76,13 +76,21 @@
 
             @can('manage-orders')
                 <a href="{{ route('orders.index') }}"
-                   class="flex items-center px-3 py-2 rounded-lg text-sm font-medium no-underline
-                          {{ request()->routeIs('orders.index') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
+                   class="flex items-center px-3 py-2 rounded-lg text-md font-medium no-underline
+                          {{ request()->routeIs('orders.index') || request()->routeIs('orders.detail') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
                     <i class="fa fa-receipt w-5"></i>
                     <span class="ml-2">Orders</span>
                 </a>
             @endcan
 
+            @can('manage-payments')
+                <a href="{{ route('stripe.payments') }}"
+                   class="flex items-center px-3 py-2 rounded-lg text-md font-medium no-underline
+                          {{ request()->routeIs('stripe.payments') ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600' }} transition-all duration-150">
+                    <i class="fa fa-money-check-alt w-5"></i>
+                    <span class="ml-2">Payments</span>
+                </a>
+            @endcan
         </nav>
     </aside>
 

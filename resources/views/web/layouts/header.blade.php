@@ -17,21 +17,48 @@
 
         <!-- Desktop Nav -->
         <nav class="hidden md:flex space-x-8 text-gray-700 font-medium">
-            <a href="{{ route('home.web') }}" class="relative group hover:text-blue-600 transition-colors duration-300">
+            @php
+                $currentRoute = request()->route()->getName();
+            @endphp
+
+            {{-- Home --}}
+            <a href="{{ route('home.web') }}"
+               class="relative group transition-colors duration-300 {{ $currentRoute === 'home.web' ? 'text-blue-600' : 'hover:text-blue-600' }}">
                 Home
-                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+                <span
+                    class="absolute bottom-0 left-0 h-0.5 bg-blue-500 transition-all duration-300
+                           {{ $currentRoute === 'home.web' ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                </span>
             </a>
-            <a href="{{ route('products.web') }}" class="relative group hover:text-blue-600 transition-colors duration-300">
+
+            {{-- Products --}}
+            <a href="{{ route('products.web') }}"
+               class="relative group transition-colors duration-300 {{ $currentRoute === 'products.web' ? 'text-blue-600' : 'hover:text-blue-600' }}">
                 Products
-                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+                <span
+                    class="absolute bottom-0 left-0 h-0.5 bg-blue-500 transition-all duration-300
+                           {{ $currentRoute === 'products.web' || $currentRoute === 'products.detail.web' ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                </span>
             </a>
-            <a href="{{ route('contact.web') }}" class="relative group hover:text-blue-600 transition-colors duration-300">
+
+            {{-- Contact --}}
+            <a href="{{ route('contact.web') }}"
+               class="relative group transition-colors duration-300 {{ $currentRoute === 'contact.web' ? 'text-blue-600' : 'hover:text-blue-600' }}">
                 Contact Us
-                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+                <span
+                    class="absolute bottom-0 left-0 h-0.5 bg-blue-500 transition-all duration-300
+                           {{ $currentRoute === 'contact.web' ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                </span>
             </a>
-            <a href="{{ route('faq.web') }}" class="relative group hover:text-blue-600 transition-colors duration-300">
+
+            {{-- FAQ --}}
+            <a href="{{ route('faq.web') }}"
+               class="relative group transition-colors duration-300 {{ $currentRoute === 'faq.web' ? 'text-blue-600' : 'hover:text-blue-600' }}">
                 FAQ's
-                <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+                <span
+                    class="absolute bottom-0 left-0 h-0.5 bg-blue-500 transition-all duration-300
+                           {{ $currentRoute === 'faq.web' ? 'w-full' : 'w-0 group-hover:w-full' }}">
+                </span>
             </a>
             <!-- @auth
                 <a href="{{ route('orders.web.listing') }}" class="relative group hover:text-blue-600 transition-colors duration-300">

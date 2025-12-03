@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendOrderConfirmationJob;
+use App\Models\Order;
+use App\Models\OrderTrail;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -19,6 +22,8 @@ class OrderController extends Controller
         }
 
         $sessionId = $request->query('session_id');
+        $orderId = $request->query('order_id');
+        
         if (!$sessionId) {
             return redirect()->route('cart.web')->with('error', 'Payment session not found.');
         }
@@ -35,36 +40,37 @@ class OrderController extends Controller
             return redirect()->route('cart.web')->with('error', 'Payment was not completed.');
         }
 
-        // Build order from cart
-        $cart = Session::get('cart', []);
-        if (empty($cart)) {
-            return redirect()->route('cart.web')->with('error', 'Cart is empty, cannot create order.');
+        if ($orderId) {
+            $order = Order::with(['items.product', 'user'])->find($orderId);
+            if ($order) {
+                if (is_null($order->paid_at)) {
+                    // Mark order as paid/confirmed
+                    $order->stripe_payment_intent_id = $checkoutSession->payment_intent ?? null;
+                    $order->paid_at = now();
+                    $order->status = 'confirmed';
+                    $order->save();
+
+                    OrderTrail::create([
+                        'order_id' => $order->id,
+                        'user_id' => Auth::id() ?? null,
+                        'status' => 'confirmed',
+                    ]);
+
+                    // Send order confirmation mail (our own receipt)
+                    if ($order->user && $order->user->email) {
+                        dispatch(new SendOrderConfirmationJob($order));
+                    }
+
+                    // Note: Stripe's own email receipt will be sent automatically
+                    // because we passed customer_email when creating the Checkout Session.
+                } else {
+                    info("Attempted to process payment for already paid order: {$order->id}");
+                }
+            }
         }
-
-        $items = [];
-        $total = 0;
-        foreach ($cart as $productId => $item) {
-            $items[] = [
-                'product_id' => $productId,
-                'quantity'   => $item['quantity'],
-            ];
-            $total += $item['price'] * $item['quantity'];
-        }
-
-        /** @var OrderService $orderService */
-        $orderService = app(OrderService::class);
-
-        $orderRequest = new Request([
-            'total' => $total,
-            'items' => $items,
-        ]);
-
-        $order = $orderService->addOrder($orderRequest);
-
-        // Clear cart after successful order creation
         Session::forget('cart');
 
-        return redirect()->route('orders.success')->with('success', 'Order placed successfully!');
+        return view('web.orders.success');
     }
     public function index()
     {

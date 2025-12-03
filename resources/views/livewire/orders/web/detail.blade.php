@@ -13,8 +13,25 @@
     @if ($order)
         {{-- Order Summary Card --}}
         <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-100 scroll-fade-in">
-            <h1 class="text-2xl font-bold text-gray-800 mb-4">Order Details</h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-2xl font-bold text-gray-800 mb-4">Order Details</h1>
+                @php
+                    $isRefunded = !is_null($order->refunded_at);
+                @endphp
+                {{-- Receipt / Refund Receipt Actions --}}
+                @if(!is_null($order->paid_at))
+                    <div class="mt-4 flex flex-wrap gap-3">
+                        <a href="{{ route('orders.web.receipt', $order->id) }}"
+                        class="inline-flex items-center px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 transition-colors duration-200"
+                        download>
+                            <i class="fa fa-download mr-2"></i>
+                            {{ $isRefunded ? 'Download Refund Receipt' : 'Download Receipt' }}
+                        </a>
+                    </div>
+                @endif
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
                 <div>
                     <p class="text-sm text-gray-500 mb-1">Order ID</p>
                     <p class="text-lg font-semibold text-gray-900">{{ $order->uid }}</p>
@@ -30,6 +47,39 @@
                         {{ ucfirst($order->status) }}
                     </span>
                 </div>
+                <div>
+                    <p class="text-sm text-gray-500 mb-1">Payment Status</p>
+                    @php
+                        $isPaid = !is_null($order->paid_at);
+                    @endphp
+                    <span class="px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full
+                        {{ $isPaid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                        <i class="fa {{ $isPaid ? 'fa-check-circle' : 'fa-times-circle' }} mr-1 mt-1"></i>
+                        {{ $isPaid ? 'Paid' : 'Not Paid' }}
+                    </span>
+                    @if($isPaid && $order->paid_at)
+                        <p class="text-xs text-gray-500 mt-1">
+                            {{ $order->paid_at->format('M d, Y') }}
+                        </p>
+                    @endif
+                </div>
+                @php
+                    $isRefunded = !is_null($order->refunded_at);
+                @endphp
+                @if($isRefunded)
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Refund Status</p>
+                        <span class="px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">
+                            <i class="fa fa-undo mr-1 mt-1"></i>
+                            Refunded
+                        </span>
+                        @if($order->refunded_at)
+                            <p class="text-xs text-gray-500 mt-1">
+                                {{ $order->refunded_at->format('M d, Y') }}
+                            </p>
+                        @endif
+                    </div>
+                @endif
                 <div>
                     <p class="text-sm text-gray-500 mb-1">Total Amount</p>
                     <p class="text-lg font-semibold text-blue-600">${{ number_format($order->total, 2) }}</p>

@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\OrderConfirmationMail;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -24,7 +25,26 @@ class SendOrderConfirmationJob implements ShouldQueue
 
     public function handle()
     {
-        Mail::to($this->order->user->email)
-            ->send(new OrderConfirmationMail($this->order));
+        $order = $this->order->loadMissing(['items.product', 'user']);
+
+        $mailable = new OrderConfirmationMail($order);
+
+        // Generate PDF receipt from view and attach
+        try {
+            $pdf = Pdf::loadView('emails.orders.receipt-pdf', [
+                'order' => $order,
+            ]);
+
+            $mailable->attachData(
+                $pdf->output(),
+                'receipt-' . $order->uid . '.pdf',
+                ['mime' => 'application/pdf']
+            );
+        } catch (\Throwable $e) {
+            info('Failed to generate PDF receipt for order ' . $order->uid . ': ' . $e->getMessage());
+        }
+
+        Mail::to($order->user->email)
+            ->send($mailable);
     }
 }

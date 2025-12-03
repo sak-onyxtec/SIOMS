@@ -1,4 +1,14 @@
 <div class="p-6" wire:poll>
+    {{-- Loading Overlay --}}
+    {{-- <div wire:loading wire:target="changeStatus" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+            <div class="flex flex-col items-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+                <p class="text-lg font-semibold text-gray-800">Updating order status...</p>
+                <p class="text-sm text-gray-600 mt-2">Please wait while we process your request</p>
+            </div>
+        </div>
+    </div> --}}
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
@@ -73,8 +83,17 @@
                                     };
                                 @endphp
                                 <span onclick="openStatusModal({{ $order->id }}, '{{ $order->status }}')"
-                                      class="cursor-pointer px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $badgeClasses }}">
-                                    {{ ucfirst($order->status) }}
+                                      class="cursor-pointer px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $badgeClasses }} relative"
+                                      wire:loading.attr="disabled"
+                                      wire:target="changeStatus">
+                                    <span wire:loading.remove wire:target="changeStatus">{{ ucfirst($order->status) }}</span>
+                                    <span wire:loading wire:target="changeStatus" class="flex items-center">
+                                        <svg class="animate-spin -ml-1 mr-2 h-3 w-3 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Updating...
+                                    </span>
                                 </span>
                             </td>
                             <td class="px-6 py-3 text-sm text-gray-600">
@@ -138,6 +157,18 @@
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
+                    // Show loading state
+                    Swal.fire({
+                        title: 'Updating Status...',
+                        html: 'Please wait while we update the order status',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    
                     component.call('changeStatus', orderId, result.value)
                         .then(() => {
                             Swal.fire({
@@ -146,6 +177,14 @@
                                 text: `Order status updated to ${result.value}`,
                                 timer: 2000,
                                 showConfirmButton: false
+                            });
+                        })
+                        .catch((error) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to update order status. Please try again.',
+                                confirmButtonText: 'OK'
                             });
                         });
                 }
