@@ -5,7 +5,19 @@
         </h2>
     </x-slot>
 
+    {{-- First Login Password Change Modal for Staff --}}
+    @if(auth()->user()->hasRole('staff') && auth()->user()->first_login)
+        <livewire:staff.change-password />
+    @endif
+
     <div class="px-4 sm:px-6 lg:px-8 py-4 text-gray-900 dark:text-gray-100">
+        {{-- Success Message --}}
+        @if(session('success'))
+            <div class="mb-4 rounded-lg border border-green-100 bg-green-50 px-4 py-3 text-sm text-green-800">
+                <i class="fas fa-check-circle mr-2"></i>
+                {{ session('success') }}
+            </div>
+        @endif
 
         {{-- Welcome Banner --}}
         @can('is-admin')
@@ -140,28 +152,34 @@
                 </div>
                 <div class="divide-y divide-gray-100 dark:divide-gray-700">
                     @forelse($latestProducts as $product)
-                        <div class="px-6 py-3 flex items-stretch gap-4">
-                            @if($product->product_image)
-                                <div class="flex-shrink-0 w-24 h-24 overflow-hidden rounded-md">
-                                    <img src="{{ $product->product_image }}" class="w-full h-full object-cover" alt="{{ $product->name }}">
+                        <div class="px-6 py-2 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3 flex-1 min-w-0">
+                                @if($product->product_image)
+                                    <div class="flex-shrink-0 w-14 h-14 overflow-hidden rounded-md">
+                                        <img src="{{ $product->product_image }}" class="w-full h-full object-cover" alt="{{ $product->name }}">
+                                    </div>
+                                @else
+                                    <div class="flex-shrink-0 w-14 h-14 rounded-md bg-gray-100 flex items-center justify-center">
+                                        <i class="fas fa-image text-gray-400 text-xs"></i>
+                                    </div>
+                                @endif
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 leading-tight truncate">{{ $product->name }}</p>
+                                    <p class="text-xs text-gray-400 leading-tight mt-0.5 truncate">
+                                        SKU: {{ $product->sku }}
+                                    </p>
                                 </div>
-                            @else
-                                <div class="flex-shrink-0 w-24 h-24 rounded-md bg-gray-100 flex items-center justify-center">
-                                    <i class="fas fa-image text-gray-500 text-sm"></i>
-                                </div>
-                            @endif
-                            <div class="flex-1 truncate">
-                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 truncate" title="{{ $product->name }}">{{ $product->name }}</p>
-                                <p class="text-xs text-gray-400 truncate">
-                                    SKU: {{ $product->sku }} ·
-                                </p>
-                                <span class="text-xs text-gray-400 font-medium">${{ number_format($product->price, 2) }}</span>
                             </div>
-                            <div>
+                            <div class="flex-1">
                                 <span class="px-2 py-1 text-xs font-semibold rounded-full
                                     {{ $product->quantity <= 5 ? 'bg-red-100 text-red-800' : ($product->quantity <= 10 ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800') }}">
                                     {{ $product->quantity }} in stock
                                 </span>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 leading-tight">
+                                    ${{ number_format($product->price, 2) }}
+                                </p>
                             </div>
                         </div>
                     @empty
@@ -180,10 +198,10 @@
                 </div>
                 <div class="divide-y divide-gray-100 dark:divide-gray-700">
                     @forelse($latestOrders as $order)
-                        <div class="px-6 py-4 flex items-center justify-between gap-4">
+                        <div class="px-6 py-2 flex items-center justify-between gap-4">
                             <div>
-                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-100">#{{ $order->uid }}</p>
-                                <p class="text-xs text-gray-400">
+                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 leading-tight">#{{ $order->uid }}</p>
+                                <p class="text-xs text-gray-400 leading-tight mt-0.5">
                                     {{ $order->created_at->format('d M Y, h:i A') }}
                                 </p>
                             </div>
@@ -198,12 +216,12 @@
                                         default => 'bg-gray-100 text-gray-800',
                                     };
                                 @endphp
-                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $badgeClasses }}">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full {{ $badgeClasses }}">
                                     {{ ucfirst($order->status) }}
                                 </span>
                             </div>
                             <div class="text-right">
-                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 leading-tight">
                                     ${{ number_format($order->total, 2) }}
                                 </p>
                             </div>

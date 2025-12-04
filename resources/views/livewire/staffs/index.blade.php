@@ -1,4 +1,17 @@
 <div class="p-6">
+    @if(session('success'))
+        <div id="success-alert" class="alert alert-success d-flex align-items-center shadow-sm" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div id="error-alert" class="alert alert-danger d-flex align-items-center shadow-sm" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="mb-6 d-flex justify-content-between align-items-center">
         <h2 class="text-2xl font-bold text-gray-800 mb-0">Staff</h2>
@@ -150,6 +163,44 @@
                     );
                 }
             })
+        }
+
+        // Auto-hide alerts after 3 seconds
+        function autoHideAlerts() {
+            const successAlert = document.getElementById('success-alert');
+            const errorAlert = document.getElementById('error-alert');
+
+            if (successAlert && !successAlert.dataset.hideScheduled) {
+                successAlert.dataset.hideScheduled = 'true';
+                setTimeout(() => {
+                    successAlert.style.transition = 'opacity 0.5s ease-out';
+                    successAlert.style.opacity = '0';
+                    setTimeout(() => {
+                        successAlert.remove();
+                    }, 500);
+                }, 3000);
+            }
+
+            if (errorAlert && !errorAlert.dataset.hideScheduled) {
+                errorAlert.dataset.hideScheduled = 'true';
+                setTimeout(() => {
+                    errorAlert.style.transition = 'opacity 0.5s ease-out';
+                    errorAlert.style.opacity = '0';
+                    setTimeout(() => {
+                        errorAlert.remove();
+                    }, 500);
+                }, 3000);
+            }
+        }
+
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', autoHideAlerts);
+
+        // Run after Livewire updates
+        if (typeof Livewire !== 'undefined') {
+            Livewire.hook('message.processed', () => {
+                setTimeout(autoHideAlerts, 100);
+            });
         }
     </script>
 @endpush

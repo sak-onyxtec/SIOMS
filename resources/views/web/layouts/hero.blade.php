@@ -20,7 +20,7 @@
             <div class="w-full md:w-1/2 scroll-slide-left">
                 <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
                     {{ $title }}
-                    <span class="text-yellow-200 drop-shadow-lg">MyStore</span>
+                    <span class="text-yellow-200 drop-shadow-lg">SIOMS</span>
                 </h1>
 
                 <p class="text-lg md:text-xl text-blue-50 mb-8 leading-relaxed">

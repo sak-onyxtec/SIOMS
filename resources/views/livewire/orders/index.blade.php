@@ -1,4 +1,18 @@
 <div class="p-6">
+    @if(session('success'))
+        <div id="success-alert" class="alert alert-success d-flex align-items-center shadow-sm" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div id="error-alert" class="alert alert-danger d-flex align-items-center shadow-sm" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            {{ session('error') }}
+        </div>
+    @endif
+
     {{-- Loading Overlay --}}
     {{-- <div wire:loading wire:target="changeStatus" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
         <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
@@ -188,31 +202,112 @@
             });
         };
 
+        // Auto-hide alerts after 3 seconds
+        function autoHideAlerts() {
+            const successAlert = document.getElementById('success-alert');
+            const errorAlert = document.getElementById('error-alert');
+
+            if (successAlert && !successAlert.dataset.hideScheduled) {
+                successAlert.dataset.hideScheduled = 'true';
+                setTimeout(() => {
+                    if (successAlert && successAlert.parentNode) {
+                        successAlert.style.transition = 'opacity 0.5s ease-out';
+                        successAlert.style.opacity = '0';
+                        setTimeout(() => {
+                            if (successAlert && successAlert.parentNode) {
+                                successAlert.remove();
+                            }
+                        }, 500);
+                    }
+                }, 3000);
+            }
+
+            if (errorAlert && !errorAlert.dataset.hideScheduled) {
+                errorAlert.dataset.hideScheduled = 'true';
+                setTimeout(() => {
+                    if (errorAlert && errorAlert.parentNode) {
+                        errorAlert.style.transition = 'opacity 0.5s ease-out';
+                        errorAlert.style.opacity = '0';
+                        setTimeout(() => {
+                            if (errorAlert && errorAlert.parentNode) {
+                                errorAlert.remove();
+                            }
+                        }, 500);
+                    }
+                }, 3000);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
+            // Filter functionality
             const statusFilter = document.getElementById('orders-status-filter');
             const clearBtn = document.getElementById('orders-clear-filters');
 
-            if (!statusFilter || !clearBtn) {
-                return;
-            }
-
-            function updateClearVisibility() {
-                if (statusFilter.value) {
-                    clearBtn.classList.remove('hidden');
-                } else {
-                    clearBtn.classList.add('hidden');
+            if (statusFilter && clearBtn) {
+                function updateClearVisibility() {
+                    if (statusFilter.value) {
+                        clearBtn.classList.remove('hidden');
+                    } else {
+                        clearBtn.classList.add('hidden');
+                    }
                 }
+
+                statusFilter.addEventListener('change', updateClearVisibility);
+
+                clearBtn.addEventListener('click', function () {
+                    statusFilter.value = '';
+                    statusFilter.dispatchEvent(new Event('change'));
+                    updateClearVisibility();
+                });
+
+                updateClearVisibility();
             }
 
-            statusFilter.addEventListener('change', updateClearVisibility);
+            // Auto-hide alerts on initial load
+            setTimeout(autoHideAlerts, 100);
 
-            clearBtn.addEventListener('click', function () {
-                statusFilter.value = '';
-                statusFilter.dispatchEvent(new Event('change'));
-                updateClearVisibility();
+            // Use MutationObserver to watch for alert additions
+            const observer = new MutationObserver(function(mutations) {
+                let shouldCheck = false;
+                mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === 1) { // Element node
+                            if (node.id === 'success-alert' || node.id === 'error-alert') {
+                                shouldCheck = true;
+                            }
+                            // Also check if alerts are inside the added node
+                            if (node.querySelectorAll) {
+                                const alerts = node.querySelectorAll('#success-alert, #error-alert');
+                                if (alerts.length > 0) {
+                                    shouldCheck = true;
+                                }
+                            }
+                        }
+                    });
+                });
+                if (shouldCheck) {
+                    setTimeout(autoHideAlerts, 100);
+                }
             });
 
-            updateClearVisibility();
+            // Observe the document body for changes (alerts can be added anywhere)
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
         });
+
+        // Run after Livewire updates - use multiple hooks to catch all updates
+        if (typeof Livewire !== 'undefined') {
+            // Hook for when message is processed
+            Livewire.hook('message.processed', (message, component) => {
+                setTimeout(autoHideAlerts, 300);
+            });
+
+            // Hook for when component is updated
+            Livewire.hook('element.updated', (el, component) => {
+                setTimeout(autoHideAlerts, 300);
+            });
+        }
     </script>
 @endpush

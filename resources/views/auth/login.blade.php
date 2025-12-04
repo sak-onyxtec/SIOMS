@@ -55,12 +55,12 @@
                     {{ __('Log in') }}
                 </x-primary-button>
 
-                <p class="text-xs text-center text-gray-500">
+                <!-- <p class="text-xs text-center text-gray-500">
                     {{ __('Not have an account?') }}
                     <a class="text-blue-600 hover:underline" href="{{ route('register') }}">
                         {{ __('Register') }}
                     </a>
-                </p>
+                </p> -->
             </div>
         </form>
     </div>

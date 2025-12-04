@@ -406,7 +406,7 @@
         ======================= -->
     <section class="bg-gradient-to-r from-blue-600 to-blue-500 text-white py-20 text-center scroll-fade-in">
         <h2 class="text-4xl md:text-5xl font-extrabold mb-6">Start Shopping Today</h2>
-        <p class="mb-8 text-lg text-blue-50 max-w-2xl mx-auto">Join thousands of happy customers using MyStore.</p>
+        <p class="mb-8 text-lg text-blue-50 max-w-2xl mx-auto">Join thousands of happy customers using SIOMS.</p>
         <a href="{{route('products.web')}}" class="px-10 py-4 bg-yellow-300 text-blue-900 rounded-lg font-bold text-lg hover:bg-yellow-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 inline-block">
             Shop Now
         </a>

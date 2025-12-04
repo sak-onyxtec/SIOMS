@@ -113,7 +113,7 @@ class WebController extends Controller
         try {
             Mail::to($contactMessage->email)->send(new ContactThankYouMail($contactMessage));
         } catch (\Throwable $e) {
-            logger()->error('Failed to send contact thank you email', [
+            info('Failed to send contact thank you email', [
                 'contact_message_id' => $contactMessage->id ?? null,
                 'error' => $e->getMessage(),
             ]);
