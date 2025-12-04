@@ -1,7 +1,7 @@
 <div class="container mx-auto px-6 py-10 flex flex-col lg:flex-row gap-6">
 
     {{-- Sidebar Filters --}}
-    <aside class="w-full lg:w-1/4 bg-white p-6 rounded-lg shadow-md">
+    <aside class="w-full lg:w-1/4 lg:max-w-xs bg-white p-6 rounded-lg shadow-md self-start lg:sticky lg:top-[calc(5rem+1.5rem)] lg:max-h-[calc(100vh-5rem-1.5rem)] lg:overflow-y-auto">
         <div class="flex items-center justify-between mb-4">
             <h2 class="text-xl font-bold">Filters</h2>
 

@@ -1,8 +1,15 @@
 <div class="p-6">
-
-    @if (session()->has('success'))
-        <div class="mb-4 rounded-lg border border-green-100 bg-green-50 px-4 py-3 text-sm text-green-800">
+    @if(session('success'))
+        <div id="success-alert" class="alert alert-success d-flex align-items-center shadow-sm" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
             {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div id="error-alert" class="alert alert-danger d-flex align-items-center shadow-sm" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            {{ session('error') }}
         </div>
     @endif
 
@@ -225,7 +232,44 @@
 
 @push('scripts')
 <script>
+    // Auto-hide alerts after 3 seconds
+    function autoHideAlerts() {
+        const successAlert = document.getElementById('success-alert');
+        const errorAlert = document.getElementById('error-alert');
+
+        if (successAlert && !successAlert.dataset.hideScheduled) {
+            successAlert.dataset.hideScheduled = 'true';
+            setTimeout(() => {
+                if (successAlert && successAlert.parentNode) {
+                    successAlert.style.transition = 'opacity 0.5s ease-out';
+                    successAlert.style.opacity = '0';
+                    setTimeout(() => {
+                        if (successAlert && successAlert.parentNode) {
+                            successAlert.remove();
+                        }
+                    }, 500);
+                }
+            }, 3000);
+        }
+
+        if (errorAlert && !errorAlert.dataset.hideScheduled) {
+            errorAlert.dataset.hideScheduled = 'true';
+            setTimeout(() => {
+                if (errorAlert && errorAlert.parentNode) {
+                    errorAlert.style.transition = 'opacity 0.5s ease-out';
+                    errorAlert.style.opacity = '0';
+                    setTimeout(() => {
+                        if (errorAlert && errorAlert.parentNode) {
+                            errorAlert.remove();
+                        }
+                    }, 500);
+                }
+            }, 3000);
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
+        // Filter functionality
         const productFilter = $('#inventory-filter-product');
         const typeFilter = $('#inventory-filter-type');
         const clearBtn = $('#inventory-clear-filters');
@@ -251,7 +295,53 @@
 
         // Initialize visibility on first load
         updateClearVisibility();
+
+        // Auto-hide alerts on initial load
+        setTimeout(autoHideAlerts, 100);
+
+        // Use MutationObserver to watch for alert additions
+        const observer = new MutationObserver(function(mutations) {
+            let shouldCheck = false;
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) { // Element node
+                        if (node.id === 'success-alert' || node.id === 'error-alert') {
+                            shouldCheck = true;
+                        }
+                        // Also check if alerts are inside the added node
+                        if (node.querySelectorAll) {
+                            const alerts = node.querySelectorAll('#success-alert, #error-alert');
+                            if (alerts.length > 0) {
+                                shouldCheck = true;
+                            }
+                        }
+                    }
+                });
+            });
+            if (shouldCheck) {
+                setTimeout(autoHideAlerts, 100);
+            }
+        });
+
+        // Observe the document body for changes (alerts can be added anywhere)
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     });
+
+    // Run after Livewire updates - use multiple hooks to catch all updates
+    if (typeof Livewire !== 'undefined') {
+        // Hook for when message is processed
+        Livewire.hook('message.processed', (message, component) => {
+            setTimeout(autoHideAlerts, 300);
+        });
+
+        // Hook for when component is updated
+        Livewire.hook('element.updated', (el, component) => {
+            setTimeout(autoHideAlerts, 300);
+        });
+    }
 
 </script>
 @endpush

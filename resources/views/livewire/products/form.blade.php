@@ -235,9 +235,16 @@
                     <i class="fas fa-arrow-left mr-2"></i> Back
                 </a>
 
-                <button type="submit" 
-                    class="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-                    <i class="fas fa-save mr-2"></i> Save Product
+                <button type="submit"
+                        wire:loading.attr="disabled"
+                        wire:target="save"
+                        class="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:opacity-75 disabled:cursor-not-allowed disabled:transform-none">
+                    <span wire:loading.remove wire:target="save">
+                        <i class="fas fa-save mr-2"></i> Save Product
+                    </span>
+                    <span wire:loading wire:target="save">
+                        <i class="fas fa-spinner fa-spin mr-2"></i> Saving...
+                    </span>
                 </button>
             </div>
         </form>

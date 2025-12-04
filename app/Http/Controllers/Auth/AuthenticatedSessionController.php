@@ -27,8 +27,16 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        
+        $user = $request->user();
+        
+        // Check if staff user needs to change password on first login
+        if ($user->hasRole('staff') && $user->first_login) {
+            return redirect()->route('dashboard')->with('first_login', true);
+        }
+        
         return redirect()->route(
-            $request->user()->hasRole('customer') ? 'home.web' : 'dashboard'
+            $user->hasRole('customer') ? 'home.web' : 'dashboard'
         );
         // return redirect()->intended(route('dashboard', absolute: false));
     }

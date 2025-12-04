@@ -168,10 +168,16 @@
                                     We’ll never share your information. Read our
                                     <a href="{{ route('privacy.web') }}" class="text-blue-600 hover:underline">privacy policy</a>.
                                 </p>
-                                <button type="submit"
-                                    class="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
-                                    <i class="fa fa-paper-plane mr-2 text-xs"></i>
-                                    Send Message
+                                <button type="submit" id="submit-btn"
+                                    class="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 disabled:opacity-75 disabled:cursor-not-allowed disabled:transform-none">
+                                    <span id="submit-text">
+                                        <i class="fa fa-paper-plane mr-2 text-xs"></i>
+                                        Send Message
+                                    </span>
+                                    <span id="submit-loader" class="hidden">
+                                        <i class="fa fa-spinner fa-spin mr-2 text-xs"></i>
+                                        Sending...
+                                    </span>
                                 </button>
                             </div>
                         </form>
@@ -194,6 +200,17 @@
                 if (type === 'success') {
                     alertBox.className = baseClasses + 'bg-green-50 text-green-800';
                     alertBox.innerHTML = `<i class="fa fa-check-circle"></i><span>${message}</span>`;
+                    alertBox.classList.remove('hidden');
+                    
+                    // Auto-hide success alert after 3 seconds
+                    setTimeout(() => {
+                        alertBox.style.transition = 'opacity 0.5s ease-out';
+                        alertBox.style.opacity = '0';
+                        setTimeout(() => {
+                            alertBox.classList.add('hidden');
+                            alertBox.style.opacity = '';
+                        }, 500);
+                    }, 3000);
                 } else {
                     alertBox.className = baseClasses + 'bg-red-50 text-red-800';
                     let html = `<i class="fa fa-exclamation-circle"></i><div><span>${message}</span>`;
@@ -206,14 +223,24 @@
                     }
                     html += '</div>';
                     alertBox.innerHTML = html;
+                    alertBox.classList.remove('hidden');
                 }
-                alertBox.classList.remove('hidden');
             }
 
             form.addEventListener('submit', async function (e) {
                 e.preventDefault();
 
                 alertBox.classList.add('hidden');
+
+                // Get button elements
+                const submitBtn = document.getElementById('submit-btn');
+                const submitText = document.getElementById('submit-text');
+                const submitLoader = document.getElementById('submit-loader');
+
+                // Show loader and disable button
+                submitBtn.disabled = true;
+                submitText.classList.add('hidden');
+                submitLoader.classList.remove('hidden');
 
                 const formData = {
                     name: form.name.value,
@@ -223,7 +250,8 @@
                     message: form.message.value,
                 };
 
-                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') 
+                    || document.querySelector('input[name="_token"]')?.value;
 
                 try {
                     const response = await fetch(form.action, {
@@ -255,6 +283,11 @@
                     }
                 } catch (err) {
                     showAlert('error', 'Unable to send your message at the moment. Please check your connection and try again.');
+                } finally {
+                    // Hide loader and enable button
+                    submitBtn.disabled = false;
+                    submitText.classList.remove('hidden');
+                    submitLoader.classList.add('hidden');
                 }
             });
         });
