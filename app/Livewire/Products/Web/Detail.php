@@ -67,7 +67,6 @@ class Detail extends Component
     public function render()
     {
         $relatedProducts = Product::with('category')->where('id', '!=', $this->product->id)
-            ->inRandomOrder()
             ->take(4)
             ->get();
 

@@ -74,10 +74,17 @@ class Form extends Component
 
     public function removeExistingImage($id)
     {
-        $this->removed_images[] = $id;
+        // Add to removed images array if not already there
+        if (!in_array($id, $this->removed_images)) {
+            $this->removed_images[] = $id;
+        }
+        
+        // Remove from existing images array using strict comparison
         $this->existing_images = array_filter($this->existing_images, function ($img) use ($id) {
-            return $img['id'] != $id;
+            return (int)$img['id'] !== (int)$id;
         });
+        
+        // Re-index the array to maintain proper order
         $this->existing_images = array_values($this->existing_images);
     }
 

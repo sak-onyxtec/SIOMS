@@ -11,7 +11,10 @@ trait FileManagerTrait
             $this->removeImage($path, $before);
         }
 
-        $filename = time() . '.' . $file->getClientOriginalExtension();
+        // Generate unique filename using timestamp, random string, and original filename hash
+        $extension = $file->getClientOriginalExtension();
+        $uniqueId = uniqid() . '_' . mt_rand(1000, 9999);
+        $filename = time() . '_' . $uniqueId . '.' . $extension;
         $file->storeAs($path, $filename, 'public'); // store in storage/app/public/...
 
         return $filename;

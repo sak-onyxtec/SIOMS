@@ -174,7 +174,7 @@
                 @if(count($existing_images) > 0)
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
                         @foreach($existing_images as $index => $img)
-                            <div class="relative group border-2 border-gray-200 rounded-lg overflow-hidden">
+                            <div wire:key="existing-image-{{ $img['id'] }}" class="relative group border-2 border-gray-200 rounded-lg overflow-hidden">
                                 <img src="{{ $img['url'] }}" alt="Product Image" class="w-full h-24 object-cover">
                                 <div class="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-200 flex items-center justify-center">
                                     <button type="button" 
